@@ -16,6 +16,9 @@ const Product = db.define('product', {
     allowNull: false,
     defaultValue: 1
   },
+  description: {
+    type: Sequelize.TEXT
+  },
   category: {
     type: Sequelize.STRING
   },
