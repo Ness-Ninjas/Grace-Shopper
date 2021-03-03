@@ -15,9 +15,9 @@ class AllProducts extends Component {
       return <h2>Loading products...</h2>
     }
     return (
-      <div>
+      <div className="all-products-container">
         {allProducts.map(product => (
-          <div key={product.id}>
+          <div key={product.id} className="all-products-product">
             <Link to={`/products/${product.id}`}>
               <img src={product.imageUrlOne} />
               <h3>{product.name}</h3>

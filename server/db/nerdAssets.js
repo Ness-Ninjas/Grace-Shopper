@@ -79,14 +79,6 @@ const nerdAssets = {
     name: 'Star Wars Xbob 360 Mod',
     price: 0.99
   },
-  12: {
-    description:
-      'because there is hope in nerd love. This is the be…Yeti, 4 Panel Life, Mutual Weirdness, Cute Comics',
-    imageUrl:
-      'https://i.pinimg.com/236x/ef/b2/ef/efb2efcba765f6eaa23404f9c4e6d806--cartoon-quotes-a-quotes.jpg',
-    name: 'cartoon quotes a quotes',
-    price: 0.99
-  },
   14: {
     description:
       'These incredible Vinyl Idolz figurines are mostly …gn, Silent Bob, Cool Pops, 3d Modelle, Modelos 3d',
