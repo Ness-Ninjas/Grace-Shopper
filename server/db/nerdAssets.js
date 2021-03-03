@@ -488,4 +488,4 @@ const nerdAssets = {
   }
 }
 
-module.export = nerdAssets
+module.exports = nerdAssets
