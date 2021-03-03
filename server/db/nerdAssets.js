@@ -12,7 +12,7 @@ const nerdAssets = {
       'I love how simple and yet how effective this littl…racter Concept, 3d Character, Cyberpunk Character',
     imageUrl:
       'https://i.pinimg.com/236x/5a/f1/4b/5af14bb2d901d34e2bbb0b8281207425--halo-game-halo-.jpg',
-    name: 'halo game halo ',
+    name: 'halo game halo',
     price: 0.99
   },
   2: {
@@ -20,7 +20,7 @@ const nerdAssets = {
       'Star Wars Portraits Collection - Star Wars Men - I…ar Wars Decor, Star haracter, Doll Toys, Art Dolls',
     imageUrl:
       'https://i.pinimg.com/236x/da/f7/33/daf73369c0b4fd07cd1a68e151212ce1--vinyl-toys-designer-toys.jpg',
-    name: 'vinyl toys designer toys',
+    name: 'Star Wars Portraits',
     price: 0.99
   },
   3: {
@@ -28,7 +28,7 @@ const nerdAssets = {
       'The Walking Dead (Humor: Fan Nenad Dodic Figures w…yl Toys, Vinyl Art, Vinyl Figures, Action Figures',
     imageUrl:
       'https://i.pinimg.com/236x/2a/63/9d/2a639d5ec9fd041598fc0e882e22a374--vinyl-art-vinyl-toys.',
-    name: 'vinyl art vinyl toys',
+    name: 'Walking Dead vinyl toys',
     price: 0.99
   },
   4: {
@@ -52,7 +52,7 @@ const nerdAssets = {
       'VANS X STAR WARS X COOLRAIN / 2014 on Behance The …Design Art, Theme Star Wars, Image 3d, Modelos 3d',
     imageUrl:
       'https://i.pinimg.com/236x/d8/e0/3e/d8e03edf346339e72d181d6abe643e05--grid-design-design-art.jpg',
-    name: 'grid design design art',
+    name: 'Star Wars Shoes',
     price: 0.99
   },
   7: {
@@ -61,7 +61,7 @@ const nerdAssets = {
     imageUrl:
       'https://i.pinimg.com/236x/1d/db/65/1ddb6562887477d…dc7ed29080c25f--fantastic-mr-fox-fabulous-fox.jpg',
     name: 'fantastic mr fox fabulous fox',
-    price: 'PICE'
+    price: 0.99
   },
   9: {
     description:
@@ -76,7 +76,7 @@ const nerdAssets = {
       'Star Wars Millennium Falcon Xbox 360 mod (Holy Mot…alcon, Nerd Love, The Force Is Strong, Love Stars',
     imageUrl:
       'https://i.pinimg.com/236x/ba/7d/4a/ba7d4a87c24196ce9045cbaf8dda23e7--cool-stuff-random-stuff.jpg',
-    name: 'cool stuff random stuff',
+    name: 'Star Wars Xbob 360 Mod',
     price: 0.99
   },
   12: {
@@ -180,7 +180,7 @@ const nerdAssets = {
       'SILENCE EARTHLING! #BTTF30 Funko Vinyl, Vinyl Toys…s, Robot Technology, Technology Gadgets, Foto Top',
     imageUrl:
       'https://i.pinimg.com/236x/42/93/f4/4293f42ffd7c9cc…66a5775984ece44--vinyl-figures-action-figures.jpg',
-    name: 'vinyl figures action figures',
+    name: 'robot action figures',
     price: 0.99
   },
   26: {
@@ -220,7 +220,7 @@ const nerdAssets = {
       'pop culture toy - Whether paying homage to Star Wa…Movies, The Shining, Vinyl Toys, Vinyl Art, Geeks',
     imageUrl:
       'https://i.pinimg.com/236x/60/29/c4/6029c4e295fcfa4be42b8f492d4cfcb1--vinyl-art-vinyl-toys.jpg',
-    name: 'vinyl art vinyl toys',
+    name: 'pop culture vinyl toys',
     price: 0.99
   },
   31: {
@@ -260,7 +260,7 @@ const nerdAssets = {
       'Get yourself wasted in less than 12 parsecs with t…th a convenient magnet placed on the back of it. ',
     imageUrl:
       'https://i.pinimg.com/236x/a6/a6/30/a6a630ef0e9bbd4610e9a601b90699a6--cool-stuff-random-stuff.jpg',
-    name: 'cool stuff random stuff',
+    name: 'Star Wars random stuff',
     price: 0.99
   },
   39: {
@@ -372,7 +372,7 @@ const nerdAssets = {
       'Happy Panda Toys will present the Grimsheep Custom…ys, Cover Art, Art Dolls, Hand Painted, Sculpting',
     imageUrl:
       'https://i.pinimg.com/236x/03/d8/da/03d8da4ac5c272e0e641c45f39cd4ea0--vinyl-toys-designer-toys.jpg',
-    name: 'vinyl toys designer toys',
+    name: 'Happy Panda Toys',
     price: 0.99
   },
   63: {
@@ -380,7 +380,7 @@ const nerdAssets = {
       'VANS X STAR WARS X COOLRAIN / 2014 on Behance The …Design Art, Theme Star Wars, Image 3d, Modelos 3d',
     imageUrl:
       'https://i.pinimg.com/236x/d8/e0/3e/d8e03edf346339e72d181d6abe643e05--grid-design-design-art.jpg',
-    name: 'grid design design art',
+    name: 'Star Wars shoes design art',
     price: 0.99
   },
   64: {
@@ -388,7 +388,7 @@ const nerdAssets = {
       'This project is launching party for vans X star wa…Figures, Vinyl Figures, Graffiti, Ralph Mcquarrie',
     imageUrl:
       'https://i.pinimg.com/236x/55/12/c8/5512c89653d678d1f8b448b186b6be6e--vinyl-toys-designer-toys.jpg',
-    name: 'vinyl toys designer toys',
+    name: 'Star Wars stuff',
     price: 0.99
   },
   65: {
@@ -435,7 +435,7 @@ const nerdAssets = {
     description: 'Andy, by Coolrain. ',
     imageUrl:
       'https://i.pinimg.com/236x/0e/85/4e/0e854e69069a5bec8a456d61e89bf9d2--vinyl-toys-designer-toys.jpg',
-    name: 'vinyl toys designer toys',
+    name: 'Andy',
     price: 0.99
   },
   72: {
@@ -459,7 +459,7 @@ const nerdAssets = {
       'T-Level x Coolrain Figures: The Korean contingent …and toy maker Coolrain lock horns to produce the ',
     imageUrl:
       'https://i.pinimg.com/236x/9e/72/78/9e7278b54c58f24…ff40f1b10fa7f61--vinyl-figures-action-figures.jpg',
-    name: 'vinyl figures action figures',
+    name: 'T-Level action figures',
     price: 0.99
   },
   77: {
@@ -483,7 +483,7 @@ const nerdAssets = {
       'Review III: Foxbox Studio God Complex: Hades 1/6…r Design, Complex Art, Crazy Toys, Armor Clothing',
     imageUrl:
       'https://i.pinimg.com/236x/c6/ff/27/c6ff27f3a220ff13292e98be085accc0--vinyl-toys-designer-toys.jpg',
-    name: 'vinyl toys designer toys',
+    name: 'Foxbox Art',
     price: 0.99
   }
 }

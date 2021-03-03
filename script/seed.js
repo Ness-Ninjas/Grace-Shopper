@@ -13,22 +13,33 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  const products = await Promise.all([
-    Product.create({
-      name: 'item_0',
-      price: nerdAssets[0].price,
-      quantity: 1,
-      category: 'nerdyThing',
-      imageUrlOne: nerdAssets[0].imageUrl
-    }),
-    Product.create({
-      name: 'item_1',
-      price: nerdAssets[1].price,
-      quantity: 2,
-      category: 'nerdyThing',
-      imageUrlOne: nerdAssets[1].imageUrl
-    })
-  ])
+  // const products = await Promise.all([
+  //   Product.create({
+  //     name: 'item_0',
+  //     price: nerdAssets[0].price,
+  //     quantity: 1,
+  //     category: 'nerdyThing',
+  //     imageUrlOne: nerdAssets[0].imageUrl
+  //   }),
+  //   Product.create({
+  //     name: 'item_1',
+  //     price: nerdAssets[1].price,
+  //     quantity: 2,
+  //     category: 'nerdyThing',
+  //     imageUrlOne: nerdAssets[1].imageUrl
+  //   })
+  // ])
+
+  const products = await Promise.all(
+    Object.values(nerdAssets).map(asset =>
+      Product.create({
+        name: asset.name,
+        price: asset.price,
+        imageUrlOne: asset.imageUrl,
+        description: asset.desctiption
+      })
+    )
+  )
 
   const orders = await Promise.all([
     Order.create({
