@@ -10,9 +10,11 @@ const addToCart = product => ({
 })
 // Thunks
 export const addItemToCart = (product, userId) => {
-  return async dispatch => {
+  console.log('cart', product)
+  return dispatch => {
     try {
       //   const {data} = await axios.post('/api/')
+      console.log('cart 2', product)
       dispatch(addToCart(product))
     } catch (error) {
       console.log(error)
@@ -23,7 +25,7 @@ export const addItemToCart = (product, userId) => {
 // Initial State
 const initialState = []
 
-export default function cartReducer(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       return [...state, action.product]

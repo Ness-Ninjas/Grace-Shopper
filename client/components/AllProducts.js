@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchAllProducts} from '../store/products'
+import {addItemToCart} from '../store/cartItems'
 import {Link} from 'react-router-dom'
 
 class AllProducts extends Component {
@@ -9,7 +10,7 @@ class AllProducts extends Component {
   }
 
   render() {
-    const {isLoggedIn, allProducts} = this.props
+    const {isLoggedIn, allProducts, addToCart} = this.props
     console.log('All products', allProducts)
     if (!allProducts.length) {
       return <h2>Loading products...</h2>
@@ -24,7 +25,9 @@ class AllProducts extends Component {
             </Link>
             <p>{product.description}</p>
             <p>{product.price}</p>
-            <button type="button">Add</button>
+            <button type="button" onClick={() => addToCart(product)}>
+              Add
+            </button>
           </div>
         ))}
       </div>
@@ -40,7 +43,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts())
+    fetchAllProducts: () => dispatch(fetchAllProducts()),
+    addToCart: product => dispatch(addItemToCart(product))
   }
 }
 
