@@ -1,9 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {changeQuantity} from '../store/cartItems'
 
 class Cart extends Component {
+  constructor() {
+    super()
+
+    this.changeQty = this.changeQty.bind(this)
+  }
   componentDidMount() {}
+
+  changeQty(event, productId) {
+    // console.log(event.target.value)
+    // console.log(event.target.prodid)
+    console.log(event.target.value)
+    console.log(productId)
+
+    this.props.changeQuantity(productId, parseInt(event.target.value))
+
+    //dispatches a change to the store using event.target.value
+  }
 
   render() {
     const {isLoggedIn, cartItems} = this.props
@@ -20,6 +37,53 @@ class Cart extends Component {
             </Link>
             <p>{product.description}</p>
             <p>{product.price}</p>
+            <div>
+              <p>{product.quantity}</p>
+
+              <label htmlFor="changeQty">Change Quantity</label>
+
+              <select
+                id="changeQty"
+                onChange={event => {
+                  this.changeQty(event, product.id)
+                }}
+              >
+                <option value="1" qty="1">
+                  1
+                </option>
+                <option value="2" qty="2">
+                  2
+                </option>
+                <option value="3" qty="3">
+                  3
+                </option>
+                <option value="4" qty="4">
+                  4
+                </option>
+                <option value="5" qty="5">
+                  5
+                </option>
+                <option value="6" qty="6">
+                  6
+                </option>
+                <option value="7" qty="7">
+                  7
+                </option>
+                <option value="8" qty="8">
+                  8
+                </option>
+                <option value="9" qty="9">
+                  9
+                </option>
+                <option value="10" qty="10">
+                  10
+                </option>
+                <option value="default" selected>
+                  {product.quantity}
+                </option>
+              </select>
+            </div>
+            <button>Remove from Cart</button>
           </div>
         ))}
       </div>
@@ -34,7 +98,9 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => {
-  return {}
+  return {
+    changeQuantity: (id, qty) => dispatch(changeQuantity(id, qty))
+  }
 }
 
 export default connect(mapState, mapDispatch)(Cart)

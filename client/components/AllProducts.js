@@ -25,7 +25,7 @@ class AllProducts extends Component {
             </Link>
             <p>{product.description}</p>
             <p>{product.price}</p>
-            <button type="button" onClick={() => addToCart(product)}>
+            <button type="button" onClick={() => this.props.addToCart(product)}>
               Add
             </button>
           </div>
