@@ -8,28 +8,29 @@ class AllProducts extends Component {
   componentDidMount() {
     this.props.fetchAllProducts()
   }
-
   render() {
-    const {isLoggedIn, allProducts, addToCart} = this.props
-    console.log('All products', allProducts)
+    const {isLoggedIn, allProducts, addToCart, isAdmin} = this.props
     if (!allProducts.length) {
       return <h2>Loading products...</h2>
     }
     return (
-      <div className="all-products-container">
-        {allProducts.map(product => (
-          <div key={product.id} className="all-products-product">
-            <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} />
-              <h3>{product.name}</h3>
-            </Link>
-            <p>{product.description}</p>
-            <p>{product.price / 100}</p>
-            <button type="button" onClick={() => addToCart(product)}>
-              Add
-            </button>
-          </div>
-        ))}
+      <div>
+        {isAdmin && <Link to="/products/add">Add Product</Link>}
+        <div className="all-products-container">
+          {allProducts.map(product => (
+            <div key={product.id} className="all-products-product">
+              <Link to={`/products/${product.id}`}>
+                <img src={product.imageUrlOne} />
+                <h3>{product.name}</h3>
+              </Link>
+              <p>{product.description}</p>
+              <p>{product.price / 100}</p>
+              <button type="button" onClick={() => addToCart(product)}>
+                Add
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
@@ -37,7 +38,8 @@ class AllProducts extends Component {
 
 const mapState = state => {
   return {
-    allProducts: state.allProducts
+    allProducts: state.allProducts,
+    isAdmin: state.user.admin
   }
 }
 

@@ -39,4 +39,8 @@ const Product = db.define('product', {
   }
 })
 
+Product.beforeValidate(product => {
+  product.price = Math.round(+product.price * 100)
+})
+
 module.exports = Product

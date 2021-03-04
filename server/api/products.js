@@ -25,3 +25,12 @@ router.get('/:productId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const product = await Product.create(req.body)
+    res.send(product)
+  } catch (err) {
+    console.error(err)
+  }
+})
