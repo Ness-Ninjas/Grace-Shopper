@@ -34,3 +34,13 @@ router.post('/', async (req, res, next) => {
     console.error(err)
   }
 })
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.productId)
+    await product.update(req.body)
+    res.send(product)
+  } catch (err) {
+    console.error(err)
+  }
+})

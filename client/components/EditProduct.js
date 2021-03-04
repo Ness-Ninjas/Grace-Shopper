@@ -1,25 +1,23 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createProduct} from '../store/products'
 
-const initialState = {
-  name: '',
-  price: 0,
-  quantity: 1,
-  description: '',
-  category: '',
-  imageUrlOne: '',
-  imageUrlTwo: '',
-  imageUrlThree: ''
-}
-
-class AddProduct extends React.Component {
+class EditProduct extends Component {
   constructor(props) {
     super(props)
-    this.state = initialState
+    this.state = {
+      name: this.props.product.name,
+      price: this.props.product.price,
+      quantity: this.props.product.quantity,
+      description: this.props.product.description,
+      category: this.props.product.category,
+      imageUrlOne: this.props.product.imageUrlOne,
+      imageUrlTwo: this.props.product.imageUrlTwo,
+      imageUrlThree: this.props.product.imageUrlThree
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
+  componentDidMount() {}
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
@@ -27,10 +25,10 @@ class AddProduct extends React.Component {
   }
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.addProduct({...this.state})
-    this.setState(initialState)
+    this.props.editProduct({...this.state})
   }
   render() {
+    const {isLoggedIn} = this.props
     const {
       name,
       price,
@@ -41,10 +39,11 @@ class AddProduct extends React.Component {
       imageUrlTwo,
       imageUrlThree
     } = this.state
+
     return (
-      <div id="add-product">
-        <h1>Add New Product</h1>
-        <form id="add-product-form" onSubmit={this.handleSubmit}>
+      <div id="edit-product">
+        <h1>Edit Product</h1>
+        <form id="edit-product-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Name:</label>
           <input onChange={this.handleChange} name="name" value={name} />
           <label htmlFor="description">Description:</label>
@@ -92,10 +91,14 @@ class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    addProduct: product => dispatch(createProduct(product))
+    product: state.singleProduct
   }
 }
 
-export default connect(null, mapDispatch)(AddProduct)
+const mapDispatch = (dispatch, {history}) => {
+  return {}
+}
+
+export default connect(mapState, mapDispatch)(EditProduct)

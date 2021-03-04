@@ -9,7 +9,11 @@ import {
   AllProducts,
   SingleProduct,
   Cart,
-  AddProduct
+  AddProduct,
+  AdminDashboard,
+  AdminProducts,
+  AdminUsers,
+  EditProduct
 } from './components'
 // import AllProducts from './components/AllProducts'
 import {me} from './store'
@@ -32,9 +36,15 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/products" component={AllProducts} />
-        {isAdmin && <Route exact path="/products/add" component={AddProduct} />}
+        {isAdmin && (
+          <Route path="/products/:productId/edit" component={EditProduct} />
+        )}
+        {isAdmin && <Route path="/products/add" component={AddProduct} />}
+        {isAdmin && <Route exact path="/admin" component={AdminDashboard} />}
+        {isAdmin && <Route path="/admin/products" component={AdminProducts} />}
+        {isAdmin && <Route path="/admin/users" component={AdminUsers} />}
         {isLoggedIn && <Route path="/home" component={UserHome} />}
-        <Route path="/products/:productId" component={SingleProduct} />
+        <Route exact path="/products/:productId" component={SingleProduct} />
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

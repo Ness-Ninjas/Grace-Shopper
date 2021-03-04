@@ -1,20 +1,20 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllProducts} from '../store/products'
-import {addItemToCart} from '../store/cartItems'
+import {fetchAllUsers} from '../store/user'
 import {Link} from 'react-router-dom'
 
-class AllProducts extends Component {
+class AdminUsers extends Component {
   componentDidMount() {
-    this.props.fetchAllProducts()
+    this.props.fetchAllUsers()
   }
   render() {
-    const {isLoggedIn, allProducts, addToCart, isAdmin} = this.props
-    if (!allProducts.length) {
-      return <h2>Loading products...</h2>
+    const {isLoggedIn, allUsers, isAdmin} = this.props
+    if (!allUsers.length) {
+      return <h2>Loading users...</h2>
     }
     return (
       <div>
+        {isAdmin && <Link to="/users/add">Add Product</Link>}
         <div className="all-products-container">
           {allProducts.map(product => (
             <div key={product.id} className="all-products-product">
@@ -37,16 +37,15 @@ class AllProducts extends Component {
 
 const mapState = state => {
   return {
-    allProducts: state.allProducts,
+    allUsers: state.allUsers,
     isAdmin: state.user.admin
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllProducts: () => dispatch(fetchAllProducts()),
-    addToCart: product => dispatch(addItemToCart(product))
+    fetchAllUsers: () => dispatch(fetchAllUsers())
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(AdminUsers)

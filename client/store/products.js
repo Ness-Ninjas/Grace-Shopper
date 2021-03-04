@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
+const EDIT_PRODUCT = 'EDIT_PRODUCT'
 
 const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
@@ -10,6 +11,11 @@ const getAllProducts = allProducts => ({
 
 const addProduct = product => ({
   type: ADD_PRODUCT,
+  product
+})
+
+const editProduct = product => ({
+  type: EDIT_PRODUCT,
   product
 })
 
@@ -24,12 +30,24 @@ export const fetchAllProducts = () => {
   }
 }
 
-export const createProduct = (product, history) => {
+export const createProduct = product => {
   return async dispatch => {
     try {
       const created = (await axios.post('/api/products', product)).data
       dispatch(addProduct(created))
-      history.push('/products')
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export const updateProduct = (product, history) => {
+  return async dispatch => {
+    try {
+      const updated = (await axios.put(`/api/products/${product.id}`, product))
+        .data
+      dispatch(editProduct(updated))
+      history.push('/admin/products')
     } catch (err) {
       console.error(err)
     }
