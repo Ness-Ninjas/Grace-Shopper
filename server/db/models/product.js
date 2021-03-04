@@ -8,7 +8,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   quantity: {
@@ -17,23 +17,23 @@ const Product = db.define('product', {
     defaultValue: 1
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   },
   category: {
     type: Sequelize.STRING
   },
   imageUrlOne: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     defaultValue:
       'https://forestprod.org/global_graphics/default-store-350x350.jpg'
   },
   imageUrlTwo: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     defaultValue:
       'https://forestprod.org/global_graphics/default-store-350x350.jpg'
   },
   imageUrlThree: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     defaultValue:
       'https://forestprod.org/global_graphics/default-store-350x350.jpg'
   }
