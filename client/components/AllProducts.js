@@ -13,18 +13,17 @@ class AllProducts extends Component {
     const {isLoggedIn, allProducts, addToCart} = this.props
     console.log('All products', allProducts)
     if (!allProducts.length) {
-      return <h2>Loading products...</h2>
+      return <h2> Loading products... </h2>
     }
     return (
       <div className="all-products-container">
         {allProducts.map(product => (
           <div key={product.id} className="all-products-product">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} />
-              <h3>{product.name}</h3>
+              <img src={product.imageUrlOne} width="200" height="260" />
+              <h3> {product.name} </h3>
             </Link>
-            <p>{product.description}</p>
-            <p>{product.price}</p>
+            <p> {product.description} </p> <p> {product.price} </p>
             <button type="button" onClick={() => this.props.addToCart(product)}>
               Add
             </button>
