@@ -14,22 +14,26 @@ class AllProducts extends Component {
       return <h2>Loading products...</h2>
     }
     return (
-      <div>
-        <div className="all-products-container">
-          {allProducts.map(product => (
-            <div key={product.id} className="all-products-product">
-              <Link to={`/products/${product.id}`}>
-                <img src={product.imageUrlOne} />
-                <h3>{product.name}</h3>
-              </Link>
+      <div className="all-products-container">
+        {allProducts.map(product => (
+          <div key={product.id} className="all-products-product">
+            <Link to={`/products/${product.id}`}>
+              <img className="all-prod-image" src={product.imageUrlOne} />
+              <h3>{product.name}</h3>
+            </Link>
+            <div>
               <p>{product.description}</p>
               <p>{product.price / 100}</p>
-              <button type="button" onClick={() => addToCart(product)}>
+              <button
+                type="button"
+                classNametype="all-prod-button"
+                onClick={() => addToCart(product)}
+              >
                 Add
               </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     )
   }

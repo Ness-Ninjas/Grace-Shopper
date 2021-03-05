@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addItemToCart} from '../store/cartItems'
 
-class SingleProduct extends Component {
+export class SingleProduct extends Component {
   componentDidMount() {}
 
   render() {
-    const {isLoggedIn, singleProduct, addToCart} = this.props
+    const {isLoggedIn, singleProduct} = this.props
 
     return (
       <div>
@@ -22,9 +21,6 @@ class SingleProduct extends Component {
           <div>
             <h3>Product.Description</h3>
           </div>
-          <button type="button" onClick={() => addToCart(singleProduct)}>
-            Add to cart
-          </button>
         </div>
       </div>
     )
@@ -36,9 +32,5 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => {
-  return {
-    addToCart: product => dispatch(addItemToCart(product))
-  }
+  return {}
 }
-
-export default connect(mapState, mapDispatch)(SingleProduct)
