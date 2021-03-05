@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
     const product = await Product.create(req.body)
     res.send(product)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 
@@ -41,6 +41,16 @@ router.put('/:productId', async (req, res, next) => {
     await product.update(req.body)
     res.send(product)
   } catch (err) {
-    console.error(err)
+    next(err)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.productId)
+    await product.destroy()
+    res.send()
+  } catch (err) {
+    next(err)
   }
 })
