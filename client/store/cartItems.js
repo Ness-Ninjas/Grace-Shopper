@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
     case ADD_TO_CART:
       return [...state, action.product]
     case CHANGE_QTY:
-      const itemToChange = state.filter(item => item.id === 1)
+      const itemToChange = state.filter(item => item.id === action.prodId)
       itemToChange[0].quantity = action.qty
       return state
     default:
