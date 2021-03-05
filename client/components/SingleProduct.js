@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-export class SingleProduct extends Component {
+class SingleProduct extends Component {
   componentDidMount() {}
 
   render() {
@@ -34,3 +34,5 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {}
 }
+
+export default SingleProduct
