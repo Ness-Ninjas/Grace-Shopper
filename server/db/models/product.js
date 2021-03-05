@@ -17,10 +17,12 @@ const Product = db.define('product', {
     defaultValue: 1
   },
   description: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: ''
   },
   category: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: ''
   },
   imageUrlOne: {
     type: Sequelize.STRING,
@@ -40,7 +42,9 @@ const Product = db.define('product', {
 })
 
 Product.beforeValidate(product => {
+  console.log('1', product.price)
   product.price = Math.round(+product.price * 100)
+  console.log('2', product.price)
 })
 
 module.exports = Product

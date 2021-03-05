@@ -37,7 +37,10 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route exact path="/products" component={AllProducts} />
         {isAdmin && (
-          <Route path="/products/:productId/edit" component={EditProduct} />
+          <Route
+            path="/products/:productId/edit"
+            render={routeProps => <EditProduct {...routeProps} />}
+          />
         )}
         {isAdmin && <Route path="/products/add" component={AddProduct} />}
         {isAdmin && <Route exact path="/admin" component={AdminDashboard} />}

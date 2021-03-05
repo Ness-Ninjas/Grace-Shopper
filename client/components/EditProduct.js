@@ -1,23 +1,29 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {fetchSingleProduct} from '../store/singleProduct'
+import {updateProduct} from '../store/products'
 
 class EditProduct extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: this.props.product.name,
-      price: this.props.product.price,
-      quantity: this.props.product.quantity,
-      description: this.props.product.description,
-      category: this.props.product.category,
-      imageUrlOne: this.props.product.imageUrlOne,
-      imageUrlTwo: this.props.product.imageUrlTwo,
-      imageUrlThree: this.props.product.imageUrlThree
+      name: '',
+      price: 0,
+      quantity: 1,
+      description: '',
+      category: '',
+      imageUrlOne: '',
+      imageUrlTwo: '',
+      imageUrlThree: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-  componentDidMount() {}
+  async componentDidMount() {
+    await this.props.getProduct(this.props.match.params.productId)
+    this.setState(this.props.product)
+    this.setState({price: this.props.product.price / 100})
+  }
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
@@ -98,7 +104,10 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, {history}) => {
-  return {}
+  return {
+    getProduct: productId => dispatch(fetchSingleProduct(productId)),
+    editProduct: product => dispatch(updateProduct(product, history))
+  }
 }
 
 export default connect(mapState, mapDispatch)(EditProduct)

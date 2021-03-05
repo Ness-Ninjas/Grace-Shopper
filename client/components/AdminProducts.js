@@ -48,7 +48,7 @@ class AdminProducts extends Component {
               <p>{product.description}</p>
               <p>{product.price / 100}</p>
               <button type="button" onClick={() => removeProduct(product)}>
-                Add
+                Delete
               </button>
             </div>
           ))}
