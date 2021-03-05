@@ -3,6 +3,7 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
+import {loadState, saveState} from './localStorage'
 import allProducts from './products'
 import cartItems from './cartItems'
 import singleProduct from './singleProduct'
@@ -11,7 +12,15 @@ const reducer = combineReducers({user, allProducts, singleProduct, cartItems})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, middleware)
+
+const persistedState = loadState()
+const store = createStore(reducer, persistedState, middleware)
+
+store.subscribe(() => {
+  saveState({
+    cartItems: store.getState().cartItems
+  })
+})
 
 export default store
 export * from './user'
