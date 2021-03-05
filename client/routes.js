@@ -8,7 +8,12 @@ import {
   UserHome,
   AllProducts,
   SingleProduct,
-  Cart
+  Cart,
+  AddProduct,
+  AdminDashboard,
+  AdminProducts,
+  AdminUsers,
+  EditProduct
 } from './components'
 // import AllProducts from './components/AllProducts'
 import {me} from './store'
@@ -22,7 +27,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Switch>
@@ -31,13 +36,18 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/products" component={AllProducts} />
-        <Route path="/products/:productId" component={SingleProduct} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
+        <Route exact path="/products/:productId" component={SingleProduct} />
+        {isAdmin && (
+          <Route
+            path="/products/:productId/edit"
+            render={routeProps => <EditProduct {...routeProps} />}
+          />
         )}
+        {isAdmin && <Route path="/products/add" component={AddProduct} />}
+        {isAdmin && <Route exact path="/admin" component={AdminDashboard} />}
+        {isAdmin && <Route path="/admin/products" component={AdminProducts} />}
+        {isAdmin && <Route path="/admin/users" component={AdminUsers} />}
+        {isLoggedIn && <Route path="/home" component={UserHome} />}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -52,7 +62,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.admin
   }
 }
 
