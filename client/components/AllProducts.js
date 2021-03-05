@@ -8,10 +8,8 @@ class AllProducts extends Component {
   componentDidMount() {
     this.props.fetchAllProducts()
   }
-
   render() {
-    const {isLoggedIn, allProducts, addToCart} = this.props
-    console.log('All products', allProducts)
+    const {isLoggedIn, allProducts, addToCart, isAdmin} = this.props
     if (!allProducts.length) {
       return <h2>Loading products...</h2>
     }
@@ -25,8 +23,9 @@ class AllProducts extends Component {
             </Link>
             <div>
               <p>{product.description}</p>
-              <p>{product.price}</p>
+              <p>{product.price / 100}</p>
               <button
+                type="button"
                 classNametype="all-prod-button"
                 onClick={() => addToCart(product)}
               >
@@ -42,7 +41,8 @@ class AllProducts extends Component {
 
 const mapState = state => {
   return {
-    allProducts: state.allProducts
+    allProducts: state.allProducts,
+    isAdmin: state.user.admin
   }
 }
 

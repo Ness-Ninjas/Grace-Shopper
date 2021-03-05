@@ -34,7 +34,7 @@ async function seed() {
     Object.values(nerdAssets).map(asset =>
       Product.create({
         name: asset.name,
-        price: Math.round(+asset.price * 100),
+        price: asset.price,
         imageUrlOne: asset.imageUrl,
         description: asset.desctiption
       })
