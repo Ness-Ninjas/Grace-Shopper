@@ -18,7 +18,6 @@ class AllProducts extends Component {
         {allProducts.map(product => (
           <div key={product.id} className="all-products-product">
             <Link to={`/products/${product.id}`}>
-
               <img className="all-prod-image" src={product.imageUrlOne} />
               <h3>{product.name}</h3>
             </Link>
@@ -33,7 +32,6 @@ class AllProducts extends Component {
                 Add
               </button>
             </div>
-
           </div>
         ))}
       </div>
