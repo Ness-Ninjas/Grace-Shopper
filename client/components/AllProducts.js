@@ -11,13 +11,14 @@ class AllProducts extends Component {
   render() {
     const {isLoggedIn, allProducts, addToCart, isAdmin} = this.props
     if (!allProducts.length) {
-      return <h2>Loading products...</h2>
+      return <h2> Loading products... </h2>
     }
     return (
       <div className="all-products-container">
         {allProducts.map(product => (
           <div key={product.id} className="all-products-product">
             <Link to={`/products/${product.id}`}>
+
               <img className="all-prod-image" src={product.imageUrlOne} />
               <h3>{product.name}</h3>
             </Link>
@@ -32,6 +33,7 @@ class AllProducts extends Component {
                 Add
               </button>
             </div>
+
           </div>
         ))}
       </div>
