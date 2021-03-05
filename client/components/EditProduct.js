@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {updateProduct} from '../store/products'
+import {Link} from 'react-router-dom'
 
 class EditProduct extends Component {
   constructor(props) {
@@ -91,6 +92,7 @@ class EditProduct extends Component {
             value={imageUrlThree}
           />
           <button type="submit">Submit</button>
+          <Link to="/admin/products">Cancel</Link>
         </form>
       </div>
     )

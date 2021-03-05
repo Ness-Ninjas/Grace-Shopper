@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {EDIT_PRODUCT} from './products'
 
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 
@@ -23,6 +24,8 @@ const initialSingleProductState = {}
 export default (state = initialSingleProductState, action) => {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
+      return action.product
+    case EDIT_PRODUCT:
       return action.product
     default:
       return state

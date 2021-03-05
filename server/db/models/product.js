@@ -42,14 +42,11 @@ const Product = db.define('product', {
 })
 
 Product.beforeUpdate(product => {
-  console.log('1', product.price)
-  // product.price = Math.round(+product.price * 100)
   product.price = Number(product.price) * 100
-  console.log('2', product.price)
 })
 
-// Product.beforeCreate((product) => {
-//   product.price =
-// })
+Product.beforeCreate(product => {
+  product.price = Number(product.price) * 100
+})
 
 module.exports = Product
