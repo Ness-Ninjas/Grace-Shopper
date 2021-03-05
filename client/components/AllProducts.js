@@ -20,13 +20,21 @@ class AllProducts extends Component {
         {allProducts.map(product => (
           <div key={product.id} className="all-products-product">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} width="200" height="260" />
-              <h3> {product.name} </h3>
+
+              <img className="all-prod-image" src={product.imageUrlOne} />
+              <h3>{product.name}</h3>
             </Link>
-            <p> {product.description} </p> <p> {product.price} </p>
-            <button type="button" onClick={() => this.props.addToCart(product)}>
-              Add
-            </button>
+            <div>
+              <p>{product.description}</p>
+              <p>{product.price}</p>
+              <button
+                classNametype="all-prod-button"
+                onClick={() => addToCart(product)}
+              >
+                Add
+              </button>
+            </div>
+
           </div>
         ))}
       </div>
