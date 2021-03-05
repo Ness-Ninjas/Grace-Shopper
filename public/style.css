@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background: linear-gradient(to left, #283048, #859398);
 }
 
 a {
@@ -11,8 +12,9 @@ label {
 }
 
 nav a {
+  color: rgb(162, 162, 162);
   display: inline-block;
-  margin: 1em;
+  margin: 1.5em;
 }
 
 form div {
@@ -20,15 +22,36 @@ form div {
   display: inline-block;
 }
 
+.Navbar {
+  background: linear-gradient(to right, #0f2027, #10252d, #1c353f);
+  border-radius: 5px;
+}
+
 .all-products-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .all-products-product {
-  border: 2px solid black;
+  border: 1px solid rgb(97, 97, 97);
+  background: linear-gradient(to right, #c6c6c6, #d7dde8);
+  flex-wrap: wrap;
+  flex-direction: column;
   border-radius: 10px;
-  margin-bottom: 10px;
-  width: 250px;
+  margin: 15px;
+  width: 300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.all-prod-button {
+  border: 1px solid rgb(74, 74, 74);
+  background: #dfdfdf;
+  color: #0a0a0b;
+  border-radius: 15px;
+}
+.all-prod-image {
+  height: 200px;
+  margin: 5px;
+  border-radius: 10px;
 }
