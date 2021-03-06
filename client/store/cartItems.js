@@ -5,9 +5,10 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const CHANGE_QTY = 'CHANGE_QTY'
 
 //Action Creator:
-const addToCart = product => ({
+const addToCart = (product, qty) => ({
   type: ADD_TO_CART,
-  product
+  product,
+  qty
 })
 
 const changeQty = (prodId, qty) => ({
@@ -30,7 +31,7 @@ export const changeQuantity = (prodId, qty) => {
   }
 }
 
-export const addItemToCart = (product, userId) => {
+export const addItemToCart = (product, qty) => {
   console.log('cart', product)
   //find the correct cartitem line, find the correct product(use filter), find the 1 piece of data that has the corresponding product and order.  ARE WE UPDATING or ADDING to the quantity.  Update replaces, add,
   //pass in product into pieces we need, like Product ID, and a default quantity and soforth
@@ -38,7 +39,7 @@ export const addItemToCart = (product, userId) => {
   return dispatch => {
     try {
       //   const {data} = await axios.post('/api/') //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
-      dispatch(addToCart(product))
+      dispatch(addToCart(product, qty))
     } catch (error) {
       console.log(error)
     }
@@ -48,18 +49,30 @@ export const addItemToCart = (product, userId) => {
 // Initial State
 const initialState = []
 
+const addOrIncrement = (state, itemToAdd) => {
+  const filterResult = state.filter(item => item.id === itemToAdd.id)
+  if (!filterResult[0]) {
+    console.log('new item to Add')
+    return [...state, itemToAdd]
+  } else {
+    const foundIndex = state.indexOf(filterResult[0])
+    state[foundIndex].quantity += itemToAdd.quantity
+    console.log('new item to Add', state)
+    return state
+  }
+}
+
 export default (state = initialState, action) => {
-  console.log('hello from the reducer')
+  console.log('hello from the reducer, heres the state below:')
   console.log(state)
 
   switch (action.type) {
     case ADD_TO_CART:
       const {id, name, description, price, imageUrlOne} = action.product
       const itemToAdd = {id, name, description, price, imageUrlOne}
-      itemToAdd.quantity = qty
-      let result = [...state, itemToAdd]
-      console.log(result)
-      return result
+      itemToAdd.quantity = action.qty
+      // checking to see if an item already exists, if so, we add quantities
+      return addOrIncrement(state, itemToAdd)
     case CHANGE_QTY:
       console.log(state)
       const itemToChange = state.filter(item => item.id === action.prodId)

@@ -27,7 +27,7 @@ class AllProducts extends Component {
               <button
                 type="button"
                 classNametype="all-prod-button"
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(product, 1)}
               >
                 Add
               </button>
@@ -49,7 +49,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchAllProducts()),
-    addToCart: product => dispatch(addItemToCart(product))
+    addToCart: (product, qty) => dispatch(addItemToCart(product, qty))
   }
 }
 
