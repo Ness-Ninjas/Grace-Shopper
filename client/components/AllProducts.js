@@ -26,7 +26,7 @@ class AllProducts extends Component {
               <p>{product.price / 100}</p>
               <button
                 type="button"
-                classNametype="all-prod-button"
+                className="all-prod-button"
                 onClick={() => addToCart(product, 1)}
               >
                 Add
