@@ -1,8 +1,10 @@
 import axios from 'axios'
+import {remove} from 'lodash'
 
 // Action Types:
 const ADD_TO_CART = 'ADD_TO_CART'
 const CHANGE_QTY = 'CHANGE_QTY'
+const REMOVE_ITEM = 'REMOVE_ITEM'
 
 //Action Creator:
 const addToCart = product => ({
@@ -16,6 +18,10 @@ const changeQty = (prodId, qty) => ({
   qty
 })
 
+const removeItem = id => ({
+  type: REMOVE_ITEM,
+  id
+})
 // Thunks
 export const changeQuantity = (prodId, qty) => {
   console.log('cart in the Thunk')
@@ -24,6 +30,18 @@ export const changeQuantity = (prodId, qty) => {
       //   const {data} = await axios.put('/api/')
       console.log('cart in the thunk 2')
       dispatch(changeQty(prodId, qty))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export const fetchRemovedItem = id => {
+  console.log('cart item deleted')
+  return dispatch => {
+    try {
+      //   const {data} = await axios.put('/api/')
+      console.log('cart cart item deleted')
+      dispatch(removeItem(id))
     } catch (error) {
       console.log(error)
     }
@@ -67,6 +85,9 @@ export default (state = initialState, action) => {
       console.log('-------------------')
       console.log(state)
       return state
+    case REMOVE_ITEM:
+      const itemToRemove = state.filter(item => item.id !== action.id)
+      return itemToRemove
     default:
       return state
   }
