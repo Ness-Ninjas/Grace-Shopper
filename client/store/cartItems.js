@@ -54,10 +54,18 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_TO_CART:
-      return [...state, action.product]
+      const {id, name, description, price, imageUrlOne} = action.product
+      const itemToAdd = {id, name, description, price, imageUrlOne}
+      itemToAdd.quantity = 1
+      let result = [...state, itemToAdd]
+      console.log(result)
+      return result
     case CHANGE_QTY:
+      console.log(state)
       const itemToChange = state.filter(item => item.id === action.prodId)
       itemToChange[0].quantity = action.qty
+      console.log('-------------------')
+      console.log(state)
       return state
     default:
       return state

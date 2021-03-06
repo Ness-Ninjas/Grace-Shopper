@@ -12,36 +12,26 @@ class Cart extends Component {
   componentDidMount() {}
 
   changeQty(event, productId) {
-    // console.log(event.target.value)
-    // console.log(event.target.prodid)
-    console.log(event.target.value)
-    console.log(productId)
-
-    this.props.changeQuantity(productId, parseInt(event.target.value))
-
-    //dispatches a change to the store using event.target.value
+    this.props.changeQuantity(productId, Number(event.target.value))
   }
 
   render() {
     const {isLoggedIn, cartItems} = this.props
     if (!cartItems.length) {
-      return <h2>Cart is empty</h2>
+      return <h2> Cart is empty </h2>
     }
     return (
       <div className="cart-container">
         {cartItems.map(product => (
           <div key={product.id} className="cart-product">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} />
-              <h3>{product.name}</h3>
+              <img src={product.imageUrlOne} /> <h3> {product.name}</h3>
             </Link>
             <p>{product.description}</p>
             <p>{product.price / 100}</p>
             <div>
-              <p>{product.quantity}</p>
-
-              <label htmlFor="changeQty">Change Quantity</label>
-
+              <p> {product.quantity} </p>
+              <label htmlFor="changeQty"> Change Quantity </label>
               <select
                 id="changeQty"
                 onChange={event => {
@@ -83,7 +73,7 @@ class Cart extends Component {
                 </option>
               </select>
             </div>
-            <button>Remove from Cart</button>
+            <button type="button">Remove from Cart</button>
           </div>
         ))}
       </div>

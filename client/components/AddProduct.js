@@ -43,7 +43,7 @@ class AddProduct extends React.Component {
     } = this.state
     return (
       <div id="add-product">
-        <h1>Add New Product</h1>
+        <h3>Add New Product</h3>
         <form id="add-product-form" onSubmit={this.handleSubmit}>
           <label htmlFor="name">Name:</label>
           <input onChange={this.handleChange} name="name" value={name} />
