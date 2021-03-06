@@ -26,8 +26,8 @@ class AllProducts extends Component {
               <p>{product.price / 100}</p>
               <button
                 type="button"
-                classNametype="all-prod-button"
-                onClick={() => addToCart(product)}
+                className="all-prod-button"
+                onClick={() => addToCart(product, 1)}
               >
                 Add
               </button>
@@ -50,7 +50,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchAllProducts: () => dispatch(fetchAllProducts()),
-    addToCart: product => dispatch(addItemToCart(product))
+    addToCart: (product, qty) => dispatch(addItemToCart(product, qty))
   }
 }
 

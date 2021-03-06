@@ -1,31 +1,53 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllUsers} from '../store/user'
+import {fetchAllUsers, deleteUser} from '../store/users'
 import {Link} from 'react-router-dom'
+import AddUser from './AddUser'
 
 class AdminUsers extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isAdding: false
+    }
+  }
   componentDidMount() {
     this.props.fetchAllUsers()
   }
   render() {
-    const {isLoggedIn, allUsers, isAdmin} = this.props
+    const {isLoggedIn, allUsers, removeUser} = this.props
     if (!allUsers.length) {
       return <h2>Loading users...</h2>
     }
     return (
       <div>
-        {isAdmin && <Link to="/users/add">Add Product</Link>}
-        <div className="all-products-container">
-          {allProducts.map(product => (
-            <div key={product.id} className="all-products-product">
-              <Link to={`/products/${product.id}`}>
-                <img src={product.imageUrlOne} />
-                <h3>{product.name}</h3>
+        <button
+          type="button"
+          onClick={() => {
+            this.setState({isAdding: true})
+          }}
+        >
+          Add User
+        </button>
+        {this.state.isAdding && <AddUser />}
+        {this.state.isAdding && (
+          <button
+            type="button"
+            onClick={() => this.setState({isAdding: false})}
+          >
+            Cancel
+          </button>
+        )}
+        <div className="all-users-container">
+          {allUsers.map(user => (
+            <div key={user.id} className="all-users-user">
+              <Link to={`/users/${user.id}/edit`}>
+                <h3>{user.email}</h3>
               </Link>
-              <p>{product.description}</p>
-              <p>{product.price / 100}</p>
-              <button type="button" onClick={() => addToCart(product)}>
-                Add
+              <p>{user.address}</p>
+              <p>Admin Status: {`${user.admin}`}</p>
+              <button type="button" onClick={() => removeUser(user)}>
+                Delete
               </button>
             </div>
           ))}
@@ -37,14 +59,14 @@ class AdminUsers extends Component {
 
 const mapState = state => {
   return {
-    allUsers: state.allUsers,
-    isAdmin: state.user.admin
+    allUsers: state.allUsers
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchAllUsers: () => dispatch(fetchAllUsers())
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
+    removeUser: user => dispatch(deleteUser(user))
   }
 }
 

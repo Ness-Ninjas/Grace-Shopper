@@ -15,7 +15,7 @@ class AdminProducts extends Component {
     this.props.fetchAllProducts()
   }
   render() {
-    const {isLoggedIn, allProducts, removeProduct, isAdmin} = this.props
+    const {isLoggedIn, allProducts, removeProduct} = this.props
     if (!allProducts.length) {
       return <h2>Loading products...</h2>
     }
