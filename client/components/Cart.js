@@ -36,7 +36,7 @@ class Cart extends Component {
               <h3>{product.name}</h3>
             </Link>
             <p>{product.description}</p>
-            <p>{product.price}</p>
+            <p>{product.price / 100}</p>
             <div>
               <p>{product.quantity}</p>
 
