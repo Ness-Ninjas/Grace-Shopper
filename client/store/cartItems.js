@@ -4,7 +4,7 @@ import {remove} from 'lodash'
 // Action Types:
 const ADD_TO_CART = 'ADD_TO_CART'
 const CHANGE_QTY = 'CHANGE_QTY'
-const REMOVE_ITEM = 'REMOVE_ITEM'
+const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM'
 
 //Action Creator:
 const addToCart = product => ({
@@ -19,7 +19,7 @@ const changeQty = (prodId, qty) => ({
 })
 
 const removeItem = id => ({
-  type: REMOVE_ITEM,
+  type: CART_REMOVE_ITEM,
   id
 })
 // Thunks
@@ -85,7 +85,7 @@ export default (state = initialState, action) => {
       console.log('-------------------')
       console.log(state)
       return state
-    case REMOVE_ITEM:
+    case CART_REMOVE_ITEM:
       const itemToRemove = state.filter(item => item.id !== action.id)
       return itemToRemove
     default:
