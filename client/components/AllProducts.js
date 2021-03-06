@@ -9,7 +9,7 @@ class AllProducts extends Component {
     this.props.fetchAllProducts()
   }
   render() {
-    const {isLoggedIn, allProducts, addToCart, isAdmin} = this.props
+    const {isLoggedIn, allProducts, addToCart, isAdmin, state} = this.props
     if (!allProducts.length) {
       return <h2> Loading products... </h2>
     }
@@ -42,7 +42,8 @@ class AllProducts extends Component {
 const mapState = state => {
   return {
     allProducts: state.allProducts,
-    isAdmin: state.user.admin
+    isAdmin: state.user.admin,
+    state: state
   }
 }
 
