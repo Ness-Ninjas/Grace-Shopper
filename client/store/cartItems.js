@@ -58,7 +58,7 @@ export const addItemToCart = (product, qty) => {
   //this may break.  Add to cart clicking twice MAY not reflect 2 items.
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cartItems', product) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
+      //const {data} = await axios.post('/api/cartItems', product) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
       console.log('-------------THUNK: addItemToCart---------------')
       console.log('DATA: ', data)
       console.log('------------------------------------------------')
