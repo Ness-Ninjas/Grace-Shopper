@@ -4,6 +4,7 @@ import {createUser} from '../store/users'
 
 const initialState = {
   email: '',
+  password: '',
   address: '',
   admin: false
 }
@@ -26,13 +27,19 @@ class AddUser extends React.Component {
     this.setState(initialState)
   }
   render() {
-    const {email, address, admin} = this.state
+    const {email, password, address, admin} = this.state
     return (
       <div id="add-user">
         <h3>Add New User</h3>
         <form id="add-user-form" onSubmit={this.handleSubmit}>
           <label htmlFor="email">Email:</label>
           <input onChange={this.handleChange} name="email" value={email} />
+          <label htmlFor="password">Password:</label>
+          <input
+            onChange={this.handleChange}
+            name="password"
+            value={password}
+          />
           <label htmlFor="address">Address:</label>
           <input onChange={this.handleChange} name="address" value={address} />
           <label htmlFor="admin">Is Admin:</label>

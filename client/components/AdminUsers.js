@@ -45,7 +45,7 @@ class AdminUsers extends Component {
                 <h3>{user.email}</h3>
               </Link>
               <p>{user.address}</p>
-              <p>Admin Status: {user.admin}</p>
+              <p>Admin Status: {`${user.admin}`}</p>
               <button type="button" onClick={() => removeUser(user)}>
                 Delete
               </button>
