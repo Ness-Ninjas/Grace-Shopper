@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
     case ADD_TO_CART:
       const {id, name, description, price, imageUrlOne} = action.product
       const itemToAdd = {id, name, description, price, imageUrlOne}
-      itemToAdd.quantity = 1
+      itemToAdd.quantity = qty
       let result = [...state, itemToAdd]
       console.log(result)
       return result
@@ -64,8 +64,6 @@ export default (state = initialState, action) => {
       console.log(state)
       const itemToChange = state.filter(item => item.id === action.prodId)
       itemToChange[0].quantity = action.qty
-      console.log('-------------------')
-      console.log(state)
       return state
     default:
       return state
