@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {changeQuantity} from '../store/cartItems'
+import {changeQuantity, fetchRemovedItem} from '../store/cartItems'
 
 class Cart extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class Cart extends Component {
   }
 
   render() {
-    const {isLoggedIn, cartItems} = this.props
+    const {isLoggedIn, cartItems, deleteItem} = this.props
     if (!cartItems.length) {
       return <h2> Cart is empty </h2>
     }
@@ -73,7 +73,14 @@ class Cart extends Component {
                 </option>
               </select>
             </div>
-            <button type="button">Remove from Cart</button>
+            <button type="button"
+              onClick={() => {
+                deleteItem(product.id)
+              }}
+            >
+              {' '}
+              Remove from Cart{' '}
+            </button>
           </div>
         ))}
       </div>
@@ -89,7 +96,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    changeQuantity: (id, qty) => dispatch(changeQuantity(id, qty))
+    changeQuantity: (id, qty) => dispatch(changeQuantity(id, qty)),
+    deleteItem: id => dispatch(fetchRemovedItem(id))
   }
 }
 
