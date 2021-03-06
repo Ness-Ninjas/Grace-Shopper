@@ -22,7 +22,8 @@ const User = db.define('user', {
     }
   },
   address: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: ''
   },
   salt: {
     type: Sequelize.STRING,

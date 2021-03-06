@@ -12,7 +12,7 @@ class Cart extends Component {
   componentDidMount() {}
 
   changeQty(event, productId) {
-    this.props.changeQuantity(productId, parseInt(event.target.value))
+    this.props.changeQuantity(productId, Number(event.target.value))
   }
 
   render() {
@@ -27,7 +27,8 @@ class Cart extends Component {
             <Link to={`/products/${product.id}`}>
               <img src={product.imageUrlOne} /> <h3> {product.name}</h3>
             </Link>
-            <p> {product.description} </p> <p> {product.price} </p>
+            <p>{product.description}</p>
+            <p>{product.price / 100}</p>
             <div>
               <p> {product.quantity} </p>
               <label htmlFor="changeQty"> Change Quantity </label>
@@ -72,7 +73,7 @@ class Cart extends Component {
                 </option>
               </select>
             </div>
-            <button
+            <button type="button"
               onClick={() => {
                 deleteItem(product.id)
               }}

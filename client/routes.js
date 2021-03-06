@@ -9,11 +9,11 @@ import {
   AllProducts,
   SingleProduct,
   Cart,
-  AddProduct,
   AdminDashboard,
   AdminProducts,
   AdminUsers,
-  EditProduct
+  EditProduct,
+  EditUser
 } from './components'
 // import AllProducts from './components/AllProducts'
 import {me} from './store'
@@ -43,11 +43,16 @@ class Routes extends Component {
             render={routeProps => <EditProduct {...routeProps} />}
           />
         )}
-        {isAdmin && <Route path="/products/add" component={AddProduct} />}
         {isAdmin && <Route exact path="/admin" component={AdminDashboard} />}
         {isAdmin && <Route path="/admin/products" component={AdminProducts} />}
         {isAdmin && <Route path="/admin/users" component={AdminUsers} />}
         {isLoggedIn && <Route path="/home" component={UserHome} />}
+        {isAdmin && (
+          <Route
+            path="/users/:userId/edit"
+            render={routeProps => <EditUser {...routeProps} />}
+          />
+        )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
