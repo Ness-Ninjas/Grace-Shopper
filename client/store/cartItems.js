@@ -60,7 +60,7 @@ export const addItemToCart = (product, qty) => {
     try {
       //const {data} = await axios.post('/api/cartItems', product) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
       console.log('-------------THUNK: addItemToCart---------------')
-      console.log('DATA: ', data)
+      // console.log('DATA: ', data)
       console.log('------------------------------------------------')
       dispatch(addToCart(product, qty))
     } catch (error) {
