@@ -10,6 +10,10 @@ class AllProducts extends Component {
   }
   render() {
     const {isLoggedIn, allProducts, addToCart, isAdmin, state} = this.props
+
+    console.log('============AllProducts=================')
+    console.log('this.props: ', this.props)
+
     if (!allProducts.length) {
       return <h2> Loading products... </h2>
     }
@@ -43,7 +47,8 @@ const mapState = state => {
   return {
     allProducts: state.allProducts,
     isAdmin: state.user.admin,
-    state: state
+    state: state,
+    cartId: state.activeCart.id
   }
 }
 
