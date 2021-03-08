@@ -60,7 +60,7 @@ export const addItemToCart = (product, qty) => {
     try {
       //const {data} = await axios.post('/api/cartItems', product) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
       console.log('-------------THUNK: addItemToCart---------------')
-      console.log('DATA: ', data)
+      // console.log('DATA: ', data)
       console.log('------------------------------------------------')
       dispatch(addToCart(product, qty))
     } catch (error) {
@@ -79,9 +79,10 @@ const addOrIncrement = (state, itemToAdd) => {
     return [...state, itemToAdd]
   } else {
     const foundIndex = state.indexOf(filterResult[0])
-    state[foundIndex].quantity += itemToAdd.quantity
+    state[foundIndex].quantity =
+      parseInt(state[foundIndex].quantity) + parseInt(itemToAdd.quantity)
     console.log('new item to Add', state)
-    return state
+    return [...state]
   }
 }
 
@@ -101,11 +102,11 @@ export default (state = initialState, action) => {
       console.log(state)
       const itemToChange = state.filter(item => item.id === action.prodId)
       itemToChange[0].quantity = action.qty
-      return state
+      return [...state]
     case CART_REMOVE_ITEM:
       const itemToRemove = state.filter(item => item.id !== action.id)
       return itemToRemove
     default:
-      return state
+      return [...state]
   }
 }
