@@ -9,7 +9,6 @@ class Cart extends Component {
 
     this.changeQty = this.changeQty.bind(this)
   }
-  componentDidMount() {}
 
   changeQty(event, productId) {
     this.props.changeQuantity(productId, Number(event.target.value))
