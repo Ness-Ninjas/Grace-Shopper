@@ -9,13 +9,13 @@ class Cart extends Component {
 
     this.changeQty = this.changeQty.bind(this)
   }
-  componentDidMount() {}
 
   changeQty(event, productId) {
     this.props.changeQuantity(productId, Number(event.target.value))
   }
 
   render() {
+    console.log('render run!')
     const {isLoggedIn, cartItems, deleteItem} = this.props
     if (!cartItems.length) {
       return <h2> Cart is empty </h2>
@@ -73,7 +73,8 @@ class Cart extends Component {
                 </option>
               </select>
             </div>
-            <button type="button"
+            <button
+              type="button"
               onClick={() => {
                 deleteItem(product.id)
               }}
