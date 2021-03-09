@@ -1,51 +1,91 @@
 const router = require('express').Router()
-const {CartItems, Cart} = require('../db/models')
+const {CartItems, Cart, Product} = require('../db/models')
+const checkLoggedin = require('./checkUser')
 module.exports = router
 
-// GET /api/cartItems
-router.get('/', async (req, res, next) => {
-  //console.log('getting all items from cart')
-  try {
-    const cartItems = await CartItems.findAll()
-    res.json(cartItems)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.get('/', checkLoggedin, async (req, res, next) => {
+//   // console.log('getting all items from cart')
+//   console.log(req.body)
+//   try {
+//     const cartItems = await CartItems.findAll()
+//     res.json(cartItems)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // GET /api/cartItems/:id
-router.get('/:cartItemId', async (req, res, next) => {
-  console.log('cartItemsId test: ', req.params)
+// router.get('/:cartItemId', checkLoggedin, async (req, res, next) => {
+//   console.log('cartItemsId test: ', req.params)
+//   try {
+//     const cartItems = await CartItems.findByPk(req.params.cartItemId)
+//     if (cartItems) {
+//       res.json(cartItems)
+//     } else {
+//       res.status(404).send('No cart found')
+//     }
+router.get('/:cartId', checkLoggedin, async (req, res, next) => {
   try {
-    const cartItems = await CartItems.findByPk(req.params.cartItemId)
-    if (cartItems) {
-      res.json(cartItems)
-    } else {
-      res.status(404).send('No cart found')
-    }
+    let cart = await Cart.findOne({
+      where: {
+        id: req.params.cartId
+      },
+      include: [{model: Product}]
+    })
+    res.send(cart.products)
   } catch (error) {
     next(error)
   }
 })
 
+// // GET /api/cartItems/:id
+// router.get('/:cartId', checkLoggedin, async (req, res, next) => {
+//   console.log('req.user', req.user)
+//   try {
+//     console.log('req.params', req.params)
+//     const cartItems = await CartItems.findByPk(req.params.cartId)
+//     if (cartItems) {
+//       res.json(cartItems)
+//     } else {
+//       res.status(404).send('No cart found')
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
 // POST /api/cartItems/
-router.post('/', async (req, res, next) => {
+
+router.post('/', checkLoggedin, async (req, res, next) => {
   console.log('======================req.body============================')
   console.log(req.body)
   try {
     if (req.user) {
-      // find cart id and match this
       const cart = await Cart.findOne({
         where: {
           userId: req.user.id
         }
       })
-      // create a new row
-      const cartItems = await CartItems.create({
-        cartId: cart.id,
-        productId: req.body.id
+      const exists = await CartItems.findOne({
+        where: {
+          productId: req.body.id,
+          cartId: cart.id
+        }
       })
-      res.send(cartItems)
+
+      if (exists) {
+        exists.update({quantity: exists.quantity + req.body.quantity})
+        res.send(exists)
+      } else {
+        // create a new row
+        const cartItem = await CartItems.create({
+          cartId: cart.id,
+          productId: req.body.id,
+          quantity: req.body.quantity,
+          currentPrice: req.body.price
+        })
+        res.send(cartItem)
+      }
     } else {
       res.send()
     }
@@ -55,7 +95,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // PUT /api/cartItems/
-router.put('/', async (req, res, next) => {
+router.put('/', checkLoggedin, async (req, res, next) => {
   try {
     // console.log('INCOMING', req.body)
     // const cart = await Cart.findOne({
@@ -75,7 +115,8 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.put('/edit', async (req, res, next) => {
+
+router.put('/edit', checkLoggedin, async (req, res, next) => {
   console.log('req.body', req.body)
   try {
     if (req.user) {
@@ -94,7 +135,7 @@ router.put('/edit', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', checkLoggedin, async (req, res, next) => {
   //Need to refactor this to get cartId from redux
   let userName = req.user.dataValues.email.split('@')[0]
   userName = userName.charAt(0).toUpperCase() + userName.slice(1)

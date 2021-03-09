@@ -29,9 +29,14 @@ const persistedState = loadState()
 const store = createStore(reducer, persistedState, middleware)
 
 store.subscribe(() => {
-  saveState({
-    cartItems: store.getState().cartItems
-  })
+  if (!store.getState().user.id) {
+    console.log('Guest cart saved to local storage')
+    saveState({
+      cartItems: store.getState().cartItems
+    })
+  } else {
+    console.log('User detected, local storage not used')
+  }
 })
 
 export default store

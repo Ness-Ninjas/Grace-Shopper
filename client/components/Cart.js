@@ -15,6 +15,7 @@ class Cart extends Component {
     console.log('--------------------------------------')
     this.props.checkout(cartId)
   }
+
   render() {
     //console.log('=============CART.JS==================')
     //console.log(this.props.cartitems)
@@ -26,7 +27,7 @@ class Cart extends Component {
     const inventoryMax = 10
     for (let i = 1; i <= inventoryMax; i++) {
       options.push(
-        <option value={i} qty={i}>
+        <option key={i} value={i} qty={i}>
           {i}
         </option>
       )
@@ -36,29 +37,35 @@ class Cart extends Component {
       return <h2> Cart is empty </h2>
     }
     return (
-      <div className="cart-container">
+      <div className="all-cart-container">
         {cartItems.map(product => (
-          <div key={product.id} className="cart-product">
+          <div key={product.id} className="all-cart-product-container">
             <Link to={`/products/${product.id}`}>
-              <h4> {product.name}</h4>
-              <img src={product.imageUrlOne} className="single-cart-image" />
+              <img className="cart-prod-image" src={product.imageUrlOne} />
             </Link>
-            <p>
-              <span>{product.description}</span>
-              <span>{product.price / 100}</span>
-              <span> {product.quantity} </span>
-            </p>
-            <label htmlFor="changeQty"> Change Quantity </label>
-            <select
-              id="changeQty"
-              onChange={event => {
-                this.props.changeQuantity(product, Number(event.target.value))
-              }}
-            >
-              <option value="default">{product.quantity}</option>
-              {options}
-            </select>
+            <Link to={`/products/${product.id}`}>
+
+              <div className="admin-prod-title-box">
+                <h3 className="admin-prod-title">{product.name}</h3>
+              </div>
+            </Link>
+            <p>{product.description}</p>
+            <p>{product.price / 100}</p>
+            <div>
+              <label htmlFor="changeQty"> Change Quantity </label>
+              <select
+                id="changeQty"
+                onChange={event => {
+                  this.props.changeQuantity(product, Number(event.target.value))
+                }}
+              >
+                <option value="default">{product.quantity}</option>
+                {options}
+              </select>
+            </div>
+
             <button
+              className="delete-button-admin"
               type="button"
               onClick={() => {
                 deleteItem(product.id)

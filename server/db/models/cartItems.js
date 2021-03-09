@@ -7,7 +7,7 @@ const CartItems = db.define('cartItems', {
     allowNull: false,
     defaultValue: 1
   },
-  currPrice: {
+  currentPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1
