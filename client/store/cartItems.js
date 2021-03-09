@@ -69,13 +69,11 @@ export const fetchRemovedItem = id => {
 
 export const addItemToCart = (product, qty) => {
   //console.log('product', product)
-  //find the correct cartitem line, find the correct product(use filter), find the 1 piece of data that has the corresponding product and order.  ARE WE UPDATING or ADDING to the quantity.  Update replaces, add,
-  //pass in product into pieces we need, like Product ID, and a default quantity and soforth
-  //this may break.  Add to cart clicking twice MAY not reflect 2 items.
+
   return async dispatch => {
     try {
       //Manually setting this now...
-      //console.log('-----------------addItemToCart------------------')
+      console.log('-----------------addItemToCart------------------')
       //product.cartId = 1
       // we need to fix this....
       product.productId = product.id
