@@ -4,16 +4,6 @@ import {Link} from 'react-router-dom'
 import {changeQuantity, fetchRemovedItem} from '../store/cartItems'
 
 class Cart extends Component {
-  constructor(props) {
-    super(props)
-
-    this.changeQty = this.changeQty.bind(this)
-  }
-
-  changeQty(event, product) {
-    this.props.changeQuantity(product, Number(event.target.value))
-  }
-
   render() {
     //console.log('=============CART.JS==================')
     //console.log(this.props.cartitems)
