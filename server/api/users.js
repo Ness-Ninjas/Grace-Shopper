@@ -17,7 +17,7 @@ router.get('/', checkAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', checkAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     if (user) {
@@ -30,7 +30,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', checkAdmin, async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     res.send(user)
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId', checkAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     await user.update(req.body)
@@ -49,10 +49,14 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/:userId', checkAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     await user.destroy()
+    req.session.destroy(err => {
+      if (err) return next(err)
+      res.redirect('/')
+    })
     res.send()
   } catch (err) {
     next(err)

@@ -52,7 +52,7 @@ export const changeQuantity = (prodId, qty = 1) => {
   }
 }
 export const fetchRemovedItem = id => {
-  console.log('cart item deleted')
+  console.log('ID of cart item to delete: ', id)
   return dispatch => {
     try {
       //   const {data} = await axios.put('/api/')
@@ -65,16 +65,23 @@ export const fetchRemovedItem = id => {
 }
 
 export const addItemToCart = (product, qty) => {
-  console.log('cart', product)
+  console.log('product', product)
   //find the correct cartitem line, find the correct product(use filter), find the 1 piece of data that has the corresponding product and order.  ARE WE UPDATING or ADDING to the quantity.  Update replaces, add,
   //pass in product into pieces we need, like Product ID, and a default quantity and soforth
   //this may break.  Add to cart clicking twice MAY not reflect 2 items.
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cartItems', product)
-      //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
+      //Manually setting this now...
+      console.log('-----------------addItemToCart------------------')
+      product.cartId = 1
+      // we need to fix this....
+      product.productId = product.id
+      product.currPrice = product.price
+      console.log('product: ', product)
+      console.log('---------------------------------------------')
+      const {data} = await axios.post('/api/cartItems', product) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
       console.log('-------------THUNK: addItemToCart---------------')
-      // console.log('DATA: ', data)
+      console.log('DATA: ', data)
       console.log('------------------------------------------------')
       dispatch(addToCart(product, qty))
     } catch (error) {
@@ -115,7 +122,7 @@ const addOrIncrement = (state, itemToAdd) => {
 
 export default (state = initialState, action) => {
   console.log('====================REDUCER======================')
-  console.log('cart', state)
+  console.log('state', state)
   console.log('-------------------------------------------------')
 
   switch (action.type) {
