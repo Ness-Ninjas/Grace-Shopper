@@ -7,12 +7,12 @@ class Cart extends Component {
   constructor(props) {
     super(props)
 
-    // this.changeQty = this.changeQty.bind(this)
+    this.changeQty = this.changeQty.bind(this)
   }
 
-  // changeQty(event, product) {
-  //   this.props.changeQuantity(product, Number(event.target.value))
-  // }
+  changeQty(event, product) {
+    this.props.changeQuantity(product, Number(event.target.value))
+  }
 
   render() {
     //console.log('=============CART.JS==================')
