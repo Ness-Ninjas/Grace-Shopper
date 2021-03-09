@@ -9,7 +9,8 @@ const CartItems = db.define('cartItems', {
   },
   currentPrice: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 1,
   }
 })
 
