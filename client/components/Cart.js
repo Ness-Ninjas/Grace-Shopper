@@ -15,6 +15,10 @@ class Cart extends Component {
   // }
 
   render() {
+    //console.log('=============CART.JS==================')
+    //console.log(this.props.cartitems)
+    //console.log('--------------------------------------')
+
     const elements = ['one', 'two', 'three']
 
     const options = []
@@ -59,8 +63,7 @@ class Cart extends Component {
                 deleteItem(product.id)
               }}
             >
-              {' '}
-              Remove from Cart{' '}
+              Remove from Cart
             </button>
           </div>
         ))}

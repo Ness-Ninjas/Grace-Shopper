@@ -2,13 +2,9 @@ const router = require('express').Router()
 const {CartItems, Cart} = require('../db/models')
 module.exports = router
 
-console.log('---------------')
-console.log(typeof CartItems)
-console.log('===============')
-
 // GET /api/cartItems
 router.get('/', async (req, res, next) => {
-  console.log('getting all items from cart')
+  //console.log('getting all items from cart')
   try {
     const cartItems = await CartItems.findAll()
     res.json(cartItems)
@@ -17,11 +13,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// GET /api/cart/:id
+// GET /api/cartItems/:id
 router.get('/:cartItemId', async (req, res, next) => {
   try {
     const cartItems = await CartItems.findByPk(req.params.cartId)
-    if (cart) {
+    if (cartItems) {
       res.json(cartItems)
     } else {
       res.status(404).send('No cart found')
@@ -31,7 +27,10 @@ router.get('/:cartItemId', async (req, res, next) => {
   }
 })
 
+// POST /api/cartItems/
 router.post('/', async (req, res, next) => {
+  //console.log('======================req.body============================')
+  //console.log(req.body)
   try {
     if (req.user) {
       // find cart id and match this
@@ -54,6 +53,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// PUT /api/cartItems/
 router.put('/', async (req, res, next) => {
   try {
     // console.log('INCOMING', req.body)
@@ -83,9 +83,9 @@ router.put('/edit', async (req, res, next) => {
         }
       })
       await cartItem.update({quantity: req.body.quantity})
-      res.send(cartItem)
+      res.status(200).send(cartItem)
     } else {
-      res.send()
+      res.status(403).send('Unable to update cartItem')
     }
   } catch (err) {
     next(err)
@@ -94,7 +94,11 @@ router.put('/edit', async (req, res, next) => {
 
 router.delete('/:productId', async (req, res, next) => {
   //Need to refactor this to get cartId from redux
-  console.log('deleting Item....')
+  let userName = req.user.dataValues.email.split('@')[0]
+  userName = userName.charAt(0).toUpperCase() + userName.slice(1)
+  console.log(
+    `${userName} is about to delete Item: ${req.params.productId} from the cart`
+  )
   try {
     if (req.user) {
       const cart = await Cart.findOne({where: {userId: req.user.id}})
@@ -104,10 +108,23 @@ router.delete('/:productId', async (req, res, next) => {
           cartId: cart.id
         }
       })
+      //console.log('cartItem: ', cartItem)
       await cartItem.destroy()
-      res.status(200).send()
+      res
+        .status(200)
+        .send(
+          `${userName} deleted cartItem: , ${
+            req.params.productId
+          } from the cart`
+        )
     } else {
-      res.send()
+      res
+        .status(403)
+        .send(
+          `${userName} we were not able to delete ${
+            req.params.productId
+          } from the cart`
+        )
     }
   } catch (err) {
     next(err)
