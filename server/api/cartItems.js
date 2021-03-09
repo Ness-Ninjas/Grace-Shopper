@@ -80,18 +80,22 @@ router.put('/:cartItemId', async (req, res, next) => {
   }
 })
 
-router.delete('/:cartItemId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   //Need to refactor this to get cartId from redux
   console.log('deleting Item....')
   try {
-    const cartItems = await CartItems.findOne({
-      where: {
-        productId: req.params.id,
-        cartId: 1
-      }
-    })
-    const {data} = await cartItems.destroy()
-    res.status(200).send(data)
+    if (req.user) {
+      const cart = await Cart.findOne({where: {userId: req.user.id}})
+      const cartItem = await CartItems.findOne({
+        where: {
+          cartId: cart.id
+        }
+      })
+      await cartItem.destroy()
+      res.status(200).send()
+    } else {
+      res.send()
+    }
   } catch (err) {
     next(err)
   }

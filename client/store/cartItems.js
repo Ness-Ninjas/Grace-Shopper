@@ -53,9 +53,9 @@ export const changeQuantity = (prodId, qty = 1) => {
 }
 export const fetchRemovedItem = id => {
   console.log('ID of cart item to delete: ', id)
-  return dispatch => {
+  return async dispatch => {
     try {
-      //   const {data} = await axios.put('/api/')
+      await axios.delete('/api/cartItems')
       console.log('cart cart item deleted')
       dispatch(removeItem(id))
     } catch (error) {
