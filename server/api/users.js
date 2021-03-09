@@ -53,9 +53,13 @@ router.delete('/:userId', checkAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     await user.destroy()
+    //wrap that in an if (to check if they are destroying themselves)
+    //when you check req.user.id vs req.params.user.id (check for string vs number)) coerce
     req.session.destroy(err => {
       if (err) return next(err)
-      res.redirect('/')
+      res.redirect('/') // slash users/ or something... 301 status?
+      // req.logout for riley, wasn't redirecting, (force refresh?)
+      //if we force refresh we can use the Auth file logic.
     })
     res.send()
   } catch (err) {
