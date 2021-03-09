@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {remove} from 'lodash'
-import {setCart} from './activeCart'
+import {setCart, clearCart, fetchCart} from './activeCart'
 
 // Action Types:
 const SET_CART_ITEMS = 'SET_CART_ITEMS'
@@ -51,17 +51,19 @@ export const clearItems = () => ({
 export const checkout = cartId => {
   return async dispatch => {
     try {
-      const {data} = await axios.put('/api/carts', {})
-      console.log(data)
-      //dispatch(clearCart)
-      //dispatch(setCart)
+      let cart = (await axios.put('/api/carts', {})).data
+      let {data} = await axios.get(`/api/cartItems/${cart.id}`)
+      const items = data
+      console.log(cart)
+      console.log(items)
+      dispatch(clearCart())
+      dispatch(fetchCart())
     } catch (error) {
       console.log(error)
-          }
+    }
   }
 }
 
-      
 export const fetchCartItems = cart => {
   return async dispatch => {
     try {
@@ -69,7 +71,6 @@ export const fetchCartItems = cart => {
       dispatch(setCartItems(items))
     } catch (err) {
       console.error(err)
-
     }
   }
 }

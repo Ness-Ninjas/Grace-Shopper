@@ -9,19 +9,13 @@ class Cart extends Component {
     this.handleCheckout = this.handleCheckout.bind(this)
   }
   handleCheckout() {
-    console.log('==============CART.JS  handleCheckout============')
     const cartId = this.props
-    console.log(cartId)
-    console.log('--------------------------------------')
     this.props.checkout(cartId)
   }
 
   render() {
-    //console.log('=============CART.JS==================')
-    //console.log(this.props.cartitems)
-    //console.log('--------------------------------------')
-
     const elements = ['one', 'two', 'three']
+    const priceArray = []
 
     const options = []
     const inventoryMax = 10
@@ -44,7 +38,6 @@ class Cart extends Component {
               <img className="cart-prod-image" src={product.imageUrlOne} />
             </Link>
             <Link to={`/products/${product.id}`}>
-
               <div className="admin-prod-title-box">
                 <h3 className="admin-prod-title">{product.name}</h3>
               </div>

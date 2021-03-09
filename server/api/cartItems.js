@@ -57,8 +57,6 @@ router.get('/:cartId', checkLoggedin, async (req, res, next) => {
 // POST /api/cartItems/
 
 router.post('/', checkLoggedin, async (req, res, next) => {
-  console.log('======================req.body============================')
-  console.log(req.body)
   try {
     if (req.user) {
       const cart = await Cart.findOne({
@@ -84,6 +82,7 @@ router.post('/', checkLoggedin, async (req, res, next) => {
           quantity: req.body.quantity,
           currentPrice: req.body.price
         })
+        cartItem.setCart(cart)
         res.send(cartItem)
       }
     } else {
@@ -114,7 +113,6 @@ router.put('/', checkLoggedin, async (req, res, next) => {
     next(err)
   }
 })
-
 
 router.put('/edit', checkLoggedin, async (req, res, next) => {
   console.log('req.body', req.body)
