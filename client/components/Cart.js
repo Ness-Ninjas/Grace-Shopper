@@ -26,16 +26,20 @@ class Cart extends Component {
       return <h2> Cart is empty </h2>
     }
     return (
-      <div className="cart-container">
+      <div className="all-cart-container">
         {cartItems.map(product => (
-          <div key={product.id} className="cart-product">
+          <div key={product.id} className="all-cart-product-container">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} /> <h3> {product.name}</h3>
+              <img className="cart-prod-image" src={product.imageUrlOne} />
+            </Link>
+            <Link to={`/products/${product.id}`}>
+              <div className="admin-prod-title-box">
+                <h3 className="admin-prod-title">{product.name}</h3>
+              </div>
             </Link>
             <p>{product.description}</p>
             <p>{product.price / 100}</p>
             <div>
-              <p> {product.quantity} </p>
               <label htmlFor="changeQty"> Change Quantity </label>
               <select
                 id="changeQty"
@@ -48,6 +52,7 @@ class Cart extends Component {
               </select>
             </div>
             <button
+              className="delete-button-admin"
               type="button"
               onClick={() => {
                 deleteItem(product.id)
