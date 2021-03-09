@@ -22,13 +22,16 @@ class AllProducts extends Component {
       <div className="all-products-container">
         {allProducts.map(product => (
           <div key={product.id} className="all-products-product">
+            <div className="all-products-inner" />
             <Link to={`/products/${product.id}`}>
               <img className="all-prod-image" src={product.imageUrlOne} />
-              <h3>{product.name}</h3>
             </Link>
-            <div>
-              <p>{product.description}</p>
-              <p>{product.price / 100}</p>
+            <Link to={`/products/${product.id}`}>
+              <h3 className="admin-prod-title">{product.name}</h3>
+            </Link>
+            <p>{product.price / 100}</p>
+            <p>{product.description}</p>
+            <div className="button-div">
               <button
                 type="button"
                 className="all-prod-button"

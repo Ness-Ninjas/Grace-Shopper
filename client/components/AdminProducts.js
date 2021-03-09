@@ -40,14 +40,20 @@ class AdminProducts extends Component {
         )}
         <div className="all-products-container">
           {allProducts.map(product => (
-            <div key={product.id} className="all-products-product">
+            <div key={product.id} className="all-admin-product-container">
               <Link to={`/products/${product.id}/edit`}>
-                <img src={product.imageUrlOne} />
-                <h3>{product.name}</h3>
+                <img className="admin-prod-image" src={product.imageUrlOne} />
+              </Link>
+              <Link to={`/products/${product.id}/edit`}>
+                <h3 className="admin-prod-title">{product.name}</h3>{' '}
               </Link>
               <p>{product.description}</p>
               <p>{product.price / 100}</p>
-              <button type="button" onClick={() => removeProduct(product)}>
+              <button
+                className="delete-button-admin"
+                type="button"
+                onClick={() => removeProduct(product)}
+              >
                 Delete
               </button>
             </div>

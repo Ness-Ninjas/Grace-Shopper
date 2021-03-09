@@ -10,9 +10,15 @@ export const AdminDashboard = props => {
 
   return (
     <div>
-      <h3>Welcome Admin!</h3>
-      <Link to="/admin/products">Products</Link>
-      <Link to="/admin/users">Users</Link>
+      <h3>Welcome Admin! What would you like to review?</h3>
+      <div className="admin-container">
+        <div className="inner-pad">
+          <Link to="/admin/products">Products</Link>
+        </div>
+        <div className="inner-pad">
+          <Link to="/admin/users">Users</Link>
+        </div>
+      </div>
     </div>
   )
 }
