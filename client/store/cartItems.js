@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {remove} from 'lodash'
-import {setCart} from './activeCart'
+import {setCart, clearCart, fetchCart} from './activeCart'
 
 // Action Types:
 const SET_CART_ITEMS = 'SET_CART_ITEMS'
@@ -48,20 +48,28 @@ export const clearItems = () => ({
 
 // Thunks
 
-export const checkout = cartId => {
+export const checkout = (cartId, totalPrice) => {
   return async dispatch => {
+    console.log(cartId, totalPrice)
     try {
-      const {data} = await axios.put('/api/carts', {})
-      console.log(data)
-      //dispatch(clearCart)
-      //dispatch(setCart)
+      const cart = (await axios.get(`/api/carts/`)).data
+      await axios.put('/api/carts', {totalPrice: totalPrice})
+      console.log(cart)
+      await axios.put('/api/carts', {status: 'closed'})
+      //const cart = (await axios.put('/api/carts', {status: "closed"})).data
+
+      //const {data} = await axios.get(`/api/cartItems/${cartId}`)
+      //const items = data
+      //console.log(cart)
+
+      dispatch(clearCart())
+      dispatch(fetchCart())
     } catch (error) {
       console.log(error)
-          }
+    }
   }
 }
 
-      
 export const fetchCartItems = cart => {
   return async dispatch => {
     try {
@@ -69,7 +77,6 @@ export const fetchCartItems = cart => {
       dispatch(setCartItems(items))
     } catch (err) {
       console.error(err)
-
     }
   }
 }

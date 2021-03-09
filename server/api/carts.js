@@ -18,19 +18,17 @@ router.get('/', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   console.log('==================PUT CART============================')
-  //console.log(req.user)
-  //console.log(req.body)
+  console.log(req.user.dataValues)
+  console.log(req.user.id)
   try {
-    /*         const user = User.findByPk({ where: { email: req.user.dataValues.email } })
-                    console.log(user) */
     const openCart = await Cart.findOne({
       where: {
-        userId: req.user.dataValues.id,
+        userId: req.user.id,
         status: 'open'
       }
     })
     console.log(openCart)
-    await openCart.update({status: 'closed'})
+    await openCart.update(req.body)
     res.status(200).send(openCart)
   } catch (error) {
     res.status(403).send(error)

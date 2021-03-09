@@ -18,19 +18,14 @@ class Cart extends Component {
     this.handleCheckout = this.handleCheckout.bind(this)
   }
   handleCheckout() {
-    console.log('==============CART.JS  handleCheckout============')
-    const cartId = this.props
-    console.log(cartId)
-    console.log('--------------------------------------')
-    this.props.checkout(cartId)
+    const cartId = this.props.activeCart.id
+    const totalPrice = calcTotal(this.props.cartItems) * 100
+    this.props.checkout(cartId, totalPrice)
   }
 
   render() {
-    //console.log('=============CART.JS==================')
-    //console.log(this.props.cartitems)
-    //console.log('--------------------------------------')
-
     const elements = ['one', 'two', 'three']
+    const priceArray = []
 
     const options = []
     const inventoryMax = 10
@@ -114,7 +109,7 @@ const mapDispatch = dispatch => {
   return {
     changeQuantity: (product, qty) => dispatch(changeQuantity(product, qty)),
     deleteItem: id => dispatch(fetchRemovedItem(id)),
-    checkout: () => dispatch(checkout())
+    checkout: (cartId, totalPrice) => dispatch(checkout(cartId, totalPrice))
   }
 }
 
