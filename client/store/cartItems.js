@@ -54,7 +54,7 @@ export const fetchCartItems = cart => {
 }
 
 export const changeQuantity = (product, qty = 1) => {
-  console.log('cart in the Thunk')
+  //console.log('cart in the Thunk')
   return async dispatch => {
     try {
       const newProduct = {
@@ -63,8 +63,8 @@ export const changeQuantity = (product, qty = 1) => {
       }
       const {data} = await axios.put('/api/cartItems/edit', newProduct)
       const thisUser = await axios.get('/auth/me')
-      console.log('-------CHANGEQTY THUNK--------')
-      console.log('cart in the thunk 2')
+      //console.log('-------CHANGEQTY THUNK--------')
+      //console.log('cart in the thunk 2')
       dispatch(changeQty(product.id, qty))
     } catch (error) {
       console.log(error)
@@ -75,7 +75,7 @@ export const fetchRemovedItem = id => {
   return async dispatch => {
     try {
       await axios.delete(`/api/cartItems/${id}`)
-      console.log('cart cart item deleted')
+      //console.log('cart cart item deleted')
       dispatch(removeItem(id))
     } catch (error) {
       console.log(error)
@@ -84,9 +84,6 @@ export const fetchRemovedItem = id => {
 }
 
 export const addItemToCart = (product, qty) => {
-  //find the correct cartitem line, find the correct product(use filter), find the 1 piece of data that has the corresponding product and order.  ARE WE UPDATING or ADDING to the quantity.  Update replaces, add,
-  //pass in product into pieces we need, like Product ID, and a default quantity and soforth
-  //this may break.  Add to cart clicking twice MAY not reflect 2 items.
   return async dispatch => {
     try {
       const item = {
@@ -101,9 +98,6 @@ export const addItemToCart = (product, qty) => {
         quantity: qty
       }
       const {data} = await axios.post('/api/cartItems', item) //WE MAY NEED TO CHANGE TO A PUT IN ORDER TO ADD QUANTITIES
-      console.log('-------------THUNK: addItemToCart---------------')
-      console.log('DATA: ', data)
-      console.log('------------------------------------------------')
       dispatch(addToCart(item))
     } catch (error) {
       console.log(error)
@@ -130,7 +124,7 @@ const initialState = []
 const addOrIncrement = (state, itemToAdd) => {
   const filterResult = state.filter(item => item.id === itemToAdd.id)
   if (!filterResult[0]) {
-    console.log('new item to Add')
+    //console.log('new item to Add')
     return [...state, itemToAdd]
   } else {
     const foundIndex = state.indexOf(filterResult[0])
@@ -142,23 +136,14 @@ const addOrIncrement = (state, itemToAdd) => {
 }
 
 export default (state = initialState, action) => {
-  console.log('====================REDUCER======================')
-  console.log('state', state)
-  console.log('-------------------------------------------------')
-
   switch (action.type) {
     case SET_CART_ITEMS:
       return action.items
     case ADD_TO_CART:
-      // const {id, name, description, price, imageUrlOne} = action.product
-      // const itemToAdd = {id, name, description, price, imageUrlOne}
-      // itemToAdd.quantity = action.qty
-      // checking to see if an item already exists, if so, we add quantities
       return addOrIncrement(state, action.item)
     case CHANGE_QTY: {
       console.log(state)
       const itemToChange = state.filter(item => item.id === action.productId)
-      console.log('ITEM TO CHANGE', itemToChange)
       itemToChange[0].quantity = action.qty
       return [...state]
     }

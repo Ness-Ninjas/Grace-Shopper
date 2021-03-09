@@ -22,6 +22,7 @@ class AdminUsers extends Component {
     return (
       <div>
         <button
+          className="all-prod-button"
           type="button"
           onClick={() => {
             this.setState({isAdding: true})
@@ -33,6 +34,7 @@ class AdminUsers extends Component {
         {this.state.isAdding && (
           <button
             type="button"
+            className="all-prod-button"
             onClick={() => this.setState({isAdding: false})}
           >
             Cancel
@@ -40,13 +42,19 @@ class AdminUsers extends Component {
         )}
         <div className="all-users-container">
           {allUsers.map(user => (
-            <div key={user.id} className="all-users-user">
+            <div key={user.id} className="users-container">
               <Link to={`/users/${user.id}/edit`}>
-                <h3>{user.email}</h3>
+                <h3 className="all-users-user-info">{user.email}</h3>
               </Link>
-              <p>{user.address}</p>
-              <p>Admin Status: {`${user.admin}`}</p>
-              <button type="button" onClick={() => removeUser(user)}>
+              <p className="all-users-user-info">
+                Admin Status: {`${user.admin}`}
+              </p>
+              <p className="all-users-user-info">{user.address}</p>
+              <button
+                className="delete-button"
+                type="button"
+                onClick={() => removeUser(user)}
+              >
                 Delete
               </button>
             </div>
