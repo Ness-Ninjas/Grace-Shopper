@@ -2,12 +2,26 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {combineWithUserCart} from '../store/cartItems'
 
 /**
  * COMPONENT
  */
+let currentCart
+let mergeMethod
+
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {
+    name,
+    displayName,
+    handleSubmit,
+    error,
+    cartItems,
+    combineCarts
+  } = props
+
+  currentCart = cartItems
+  mergeMethod = combineCarts
 
   return (
     <div>
@@ -45,7 +59,8 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.user.error,
+    cartItems: state.cartItems
   }
 }
 
@@ -53,19 +68,22 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.user.error,
+    cartItems: state.cartItems
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
-    }
+      await dispatch(auth(email, password, formName))
+      mergeMethod(currentCart)
+    },
+    combineCarts: cartItems => dispatch(combineWithUserCart(cartItems))
   }
 }
 

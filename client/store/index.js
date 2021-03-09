@@ -9,7 +9,7 @@ import cartItems from './cartItems'
 import singleProduct from './singleProduct'
 import allUsers from './users'
 import singleUser from './singleUser'
-import activeCart, {createCart} from './activeCart'
+import activeCart from './activeCart'
 
 const reducer = combineReducers({
   user,
@@ -27,12 +27,6 @@ const middleware = composeWithDevTools(
 
 const persistedState = loadState()
 const store = createStore(reducer, persistedState, middleware)
-
-console.log('store', store)
-console.log('state', store.getState())
-if (!store.getState().activeCart.id) {
-  store.dispatch(createCart())
-}
 
 store.subscribe(() => {
   saveState({
