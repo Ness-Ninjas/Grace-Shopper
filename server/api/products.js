@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const checkAdmin = require('./checkAdmin')
 module.exports = router
 
 // GET /api/products
@@ -13,7 +14,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET /api/products/:id
-router.get('/:productId', async (req, res, next) => {
+router.get('/:productId', checkAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     if (product) {
@@ -26,7 +27,7 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', checkAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.send(product)
@@ -35,7 +36,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', checkAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     await product.update(req.body)
@@ -45,7 +46,7 @@ router.put('/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', checkAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     await product.destroy()
