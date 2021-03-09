@@ -14,6 +14,16 @@ module.exports = router
 //   }
 // })
 
+// GET /api/cartItems/:id
+// router.get('/:cartItemId', checkLoggedin, async (req, res, next) => {
+//   console.log('cartItemsId test: ', req.params)
+//   try {
+//     const cartItems = await CartItems.findByPk(req.params.cartItemId)
+//     if (cartItems) {
+//       res.json(cartItems)
+//     } else {
+//       res.status(404).send('No cart found')
+//     }
 router.get('/:cartId', checkLoggedin, async (req, res, next) => {
   try {
     let cart = await Cart.findOne({
@@ -45,6 +55,7 @@ router.get('/:cartId', checkLoggedin, async (req, res, next) => {
 // })
 
 // POST /api/cartItems/
+
 router.post('/', checkLoggedin, async (req, res, next) => {
   console.log('======================req.body============================')
   console.log(req.body)
@@ -103,6 +114,7 @@ router.put('/', checkLoggedin, async (req, res, next) => {
     next(err)
   }
 })
+
 
 router.put('/edit', checkLoggedin, async (req, res, next) => {
   console.log('req.body', req.body)

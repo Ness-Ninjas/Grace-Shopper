@@ -1,9 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {changeQuantity, fetchRemovedItem} from '../store/cartItems'
+import {changeQuantity, checkout, fetchRemovedItem} from '../store/cartItems'
 
 class Cart extends Component {
+  constructor(props) {
+    super(props)
+    this.handleCheckout = this.handleCheckout.bind(this)
+  }
+  handleCheckout() {
+    console.log('==============CART.JS  handleCheckout============')
+    const cartId = this.props
+    console.log(cartId)
+    console.log('--------------------------------------')
+    this.props.checkout(cartId)
+  }
+
   render() {
     //console.log('=============CART.JS==================')
     //console.log(this.props.cartitems)
@@ -20,7 +32,6 @@ class Cart extends Component {
         </option>
       )
     }
-
     const {isLoggedIn, cartItems, deleteItem} = this.props
     if (!cartItems.length) {
       return <h2> Cart is empty </h2>
@@ -33,6 +44,7 @@ class Cart extends Component {
               <img className="cart-prod-image" src={product.imageUrlOne} />
             </Link>
             <Link to={`/products/${product.id}`}>
+
               <div className="admin-prod-title-box">
                 <h3 className="admin-prod-title">{product.name}</h3>
               </div>
@@ -51,6 +63,7 @@ class Cart extends Component {
                 {options}
               </select>
             </div>
+
             <button
               className="delete-button-admin"
               type="button"
@@ -62,6 +75,9 @@ class Cart extends Component {
             </button>
           </div>
         ))}
+        <button type="button" onClick={() => this.handleCheckout()}>
+          Check Out
+        </button>
       </div>
     )
   }
@@ -69,14 +85,16 @@ class Cart extends Component {
 
 const mapState = state => {
   return {
-    cartItems: state.cartItems
+    cartItems: state.cartItems,
+    activeCart: state.activeCart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     changeQuantity: (product, qty) => dispatch(changeQuantity(product, qty)),
-    deleteItem: id => dispatch(fetchRemovedItem(id))
+    deleteItem: id => dispatch(fetchRemovedItem(id)),
+    checkout: () => dispatch(checkout())
   }
 }
 

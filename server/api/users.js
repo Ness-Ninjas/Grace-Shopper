@@ -56,13 +56,12 @@ router.delete('/:userId', checkAdmin, async (req, res, next) => {
     await user.destroy()
     //wrap that in an if (to check if they are destroying themselves)
     //when you check req.user.id vs req.params.user.id (check for string vs number)) coerce
-    //if (Numer(req.user.id) === Number(user.id)) {}
-    await req.session.destroy()
-    res.redirect('http://localhost:8080/')
-
-    // slash users/ or something... 301 status?
-    // req.logout for riley, wasn't redirecting, (force refresh?)
-    //if we force refresh we can use the Auth file logic.
+    req.session.destroy(err => {
+      if (err) return next(err)
+      res.redirect('https://ness-ninjas-grace-shopper.herokuapp.com/') // slash users/ or something... 301 status?
+      // req.logout for riley, wasn't redirecting, (force refresh?)
+      //if we force refresh we can use the Auth file logic.
+    })
   } catch (err) {
     next(err)
   }
