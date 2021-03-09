@@ -47,6 +47,7 @@ export const checkout = cartId => {
   return async dispatch => {
     try {
       const {data} = await axios.put('/api/carts', {})
+      console.log(data)
       //dispatch(clearCart)
       //dispatch(setCart)
     } catch (error) {
