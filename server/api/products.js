@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET /api/products/:id
-router.get('/:productId', checkAdmin, async (req, res, next) => {
+router.get('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     if (product) {

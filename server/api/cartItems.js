@@ -30,8 +30,8 @@ router.get('/:cartItemId', async (req, res, next) => {
 
 // POST /api/cartItems/
 router.post('/', async (req, res, next) => {
-  //console.log('======================req.body============================')
-  //console.log(req.body)
+  console.log('======================req.body============================')
+  console.log(req.body)
   try {
     if (req.user) {
       // find cart id and match this
@@ -76,6 +76,7 @@ router.put('/', async (req, res, next) => {
 })
 
 router.put('/edit', async (req, res, next) => {
+  console.log('req.body', req.body)
   try {
     if (req.user) {
       const cartItem = await CartItems.findOne({

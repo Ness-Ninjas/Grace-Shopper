@@ -6,19 +6,14 @@ import {changeQuantity, checkout, fetchRemovedItem} from '../store/cartItems'
 class Cart extends Component {
   constructor(props) {
     super(props)
-
-    // this.changeQty = this.changeQty.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
   }
-
-  // changeQty(event, product) {
-  //   this.props.changeQuantity(product, Number(event.target.value))
-  // }
-  handleCheckout(cartId) {
-    console.log('==============handleCheckout==============')
-    console.log(this.props)
-    console.log('------------------------------------------')
-    checkout(cartId)
+  handleCheckout() {
+    console.log('==============CART.JS  handleCheckout============')
+    const cartId = this.props
+    console.log(cartId)
+    console.log('--------------------------------------')
+    this.props.checkout(cartId)
   }
   render() {
     //console.log('=============CART.JS==================')
@@ -36,7 +31,6 @@ class Cart extends Component {
         </option>
       )
     }
-
     const {isLoggedIn, cartItems, deleteItem} = this.props
     if (!cartItems.length) {
       return <h2> Cart is empty </h2>
@@ -74,7 +68,7 @@ class Cart extends Component {
             </button>
           </div>
         ))}
-        <button type="button" onClick={() => this.checkOut(3)}>
+        <button type="button" onClick={() => this.handleCheckout()}>
           Check Out
         </button>
       </div>
@@ -92,7 +86,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     changeQuantity: (product, qty) => dispatch(changeQuantity(product, qty)),
-    deleteItem: id => dispatch(fetchRemovedItem(id))
+    deleteItem: id => dispatch(fetchRemovedItem(id)),
+    checkout: () => dispatch(checkout())
   }
 }
 
