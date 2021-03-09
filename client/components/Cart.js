@@ -4,15 +4,15 @@ import {Link} from 'react-router-dom'
 import {changeQuantity, fetchRemovedItem} from '../store/cartItems'
 
 class Cart extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
-    this.changeQty = this.changeQty.bind(this)
+    // this.changeQty = this.changeQty.bind(this)
   }
 
-  changeQty(event, productId) {
-    this.props.changeQuantity(productId, Number(event.target.value))
-  }
+  // changeQty(event, product) {
+  //   this.props.changeQuantity(product, Number(event.target.value))
+  // }
 
   render() {
     const elements = ['one', 'two', 'three']
@@ -46,7 +46,7 @@ class Cart extends Component {
               <select
                 id="changeQty"
                 onChange={event => {
-                  this.changeQty(event, product.id)
+                  this.props.changeQuantity(product, Number(event.target.value))
                 }}
               >
                 <option value="default">{product.quantity}</option>
@@ -77,7 +77,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    changeQuantity: (id, qty) => dispatch(changeQuantity(id, qty)),
+    changeQuantity: (product, qty) => dispatch(changeQuantity(product, qty)),
     deleteItem: id => dispatch(fetchRemovedItem(id))
   }
 }

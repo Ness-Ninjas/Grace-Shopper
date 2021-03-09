@@ -33,18 +33,22 @@ router.get('/:cartItemId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    // find cart id and match this
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.user.id
-      }
-    })
-    // create a new row
-    const cartItems = await CartItems.create({
-      cartId: cart.id,
-      productId: req.body.id
-    })
-    res.send(cartItems)
+    if (req.user) {
+      // find cart id and match this
+      const cart = await Cart.findOne({
+        where: {
+          userId: req.user.id
+        }
+      })
+      // create a new row
+      const cartItems = await CartItems.create({
+        cartId: cart.id,
+        productId: req.body.id
+      })
+      res.send(cartItems)
+    } else {
+      res.send()
+    }
   } catch (err) {
     next(err)
   }
@@ -70,11 +74,15 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.put('/:cartItemId', async (req, res, next) => {
+router.put('/edit', async (req, res, next) => {
   try {
-    const cartItems = await CartItems.findByPk(req.params.cartId)
-    await cartItems.update(req.body)
-    res.send(cart)
+    const cartItem = await CartItems.findOne({
+      where: {
+        productId: req.body.id
+      }
+    })
+    await cartItem.update({quantity: req.body.quantity})
+    res.send(cartItem)
   } catch (err) {
     next(err)
   }
