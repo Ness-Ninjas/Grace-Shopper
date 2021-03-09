@@ -17,7 +17,6 @@ import {
 } from './components'
 // import AllProducts from './components/AllProducts'
 import {me} from './store'
-import {fetchCart} from './store/activeCart'
 
 /**
  * COMPONENT
@@ -25,11 +24,7 @@ import {fetchCart} from './store/activeCart'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    if (this.props.user.id) {
-      this.props.setCart()
-    }
   }
-
   render() {
     const {isLoggedIn, isAdmin} = this.props
 

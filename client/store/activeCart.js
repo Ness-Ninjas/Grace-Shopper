@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchCartItems} from './cartItems'
 
 const SET_CART = 'SET_CART'
 // const COMBINE_CARTS = 'COMBINE_CARTS'
@@ -23,6 +24,7 @@ export const fetchCart = () => {
     try {
       const cart = (await axios.get('/api/carts')).data
       dispatch(setCart(cart))
+      dispatch(fetchCartItems(cart))
     } catch (err) {
       console.error(err)
     }

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartItems, Cart} = require('../db/models')
+const {CartItems, Cart, Product} = require('../db/models')
 module.exports = router
 
 console.log('---------------')
@@ -7,25 +7,46 @@ console.log(typeof CartItems)
 console.log('===============')
 
 // GET /api/cartItems
-router.get('/', async (req, res, next) => {
-  console.log('getting all items from cart')
-  try {
-    const cartItems = await CartItems.findAll()
-    res.json(cartItems)
-  } catch (error) {
-    next(error)
-  }
-})
+//**** DONT NEED TO GET ALL ITEMS
+// router.get('/', async (req, res, next) => {
+//   console.log('getting all items from cart')
+//   try {
+//     let cartItems = await CartItems.findAll({
+//       where: {
+//         cartId: req.params.cartId,
+//       },
+//     })
+//     cartItems = cartItems.map(async (item) => {
+//       const product = await Product.findByPk(item.productId)
+//       const clone = {
+//         id: product.id,
+//         name: product.name,
+//         price: item.currentPrice,
+//         quantity: item.quantity,
+//         description: product.description,
+//         category: product.category,
+//         imageUrlOne: product.imageUrlOne,
+//         imageUrlTwo: product.imageUrlTwo,
+//         imageUrlThree: product.imageUrlThree,
+//       }
+//       return clone
+//     })
+//     res.send(cartItems)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // GET /api/cart/:id
-router.get('/:cartItemId', async (req, res, next) => {
+router.get('/:cartId', async (req, res, next) => {
   try {
-    const cartItems = await CartItems.findByPk(req.params.cartId)
-    if (cart) {
-      res.json(cartItems)
-    } else {
-      res.status(404).send('No cart found')
-    }
+    let cart = await Cart.findOne({
+      where: {
+        id: req.params.cartId
+      },
+      include: [{model: Product}]
+    })
+    res.send(cart.products)
   } catch (error) {
     next(error)
   }
@@ -40,12 +61,26 @@ router.post('/', async (req, res, next) => {
           userId: req.user.id
         }
       })
-      // create a new row
-      const cartItems = await CartItems.create({
-        cartId: cart.id,
-        productId: req.body.id
+      const exists = await CartItems.findOne({
+        where: {
+          productId: req.body.id,
+          cartId: cart.id
+        }
       })
-      res.send(cartItems)
+
+      if (exists) {
+        exists.update({quantity: exists.quantity + req.body.quantity})
+        res.send(exists)
+      } else {
+        // create a new row
+        const cartItem = await CartItems.create({
+          cartId: cart.id,
+          productId: req.body.id,
+          quantity: req.body.quantity,
+          currentPrice: req.body.price
+        })
+        res.send(cartItem)
+      }
     } else {
       res.send()
     }
