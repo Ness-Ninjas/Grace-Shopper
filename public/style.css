@@ -117,6 +117,15 @@ form div {
   border-radius: 12px;
 }
 
+.checkout-button {
+  border: 1px solid rgb(74, 74, 74);
+  background: #1c353f;
+  color: #f4f4f4;
+  padding: 8px;
+  margin: 10px;
+  border-radius: 12px;
+}
+
 .delete-button {
   border: 1px solid rgb(74, 74, 74);
   background: #000000;
@@ -201,6 +210,10 @@ form div {
 
 body {
   background-color: #151517;
+}
+
+.total-price {
+  align-self: center;
 }
 
 /* .icon-cart {

@@ -82,7 +82,7 @@ router.post('/', checkLoggedin, async (req, res, next) => {
           quantity: req.body.quantity,
           currentPrice: req.body.price
         })
-        cartItem.setCart(cart)
+        //cartItem.setCart(cart)
         res.send(cartItem)
       }
     } else {

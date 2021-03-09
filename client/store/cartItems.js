@@ -48,14 +48,20 @@ export const clearItems = () => ({
 
 // Thunks
 
-export const checkout = cartId => {
+export const checkout = (cartId, totalPrice) => {
   return async dispatch => {
+    console.log(cartId, totalPrice)
     try {
-      let cart = (await axios.put('/api/carts', {})).data
-      let {data} = await axios.get(`/api/cartItems/${cart.id}`)
-      const items = data
+      const cart = (await axios.get(`/api/carts/`)).data
+      await axios.put('/api/carts', {totalPrice: totalPrice})
       console.log(cart)
-      console.log(items)
+      await axios.put('/api/carts', {status: 'closed'})
+      //const cart = (await axios.put('/api/carts', {status: "closed"})).data
+
+      //const {data} = await axios.get(`/api/cartItems/${cartId}`)
+      //const items = data
+      //console.log(cart)
+
       dispatch(clearCart())
       dispatch(fetchCart())
     } catch (error) {

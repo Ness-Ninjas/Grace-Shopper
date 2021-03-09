@@ -3,14 +3,24 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {changeQuantity, checkout, fetchRemovedItem} from '../store/cartItems'
 
+const calcTotal = cartItems => {
+  let total = 0
+  cartItems.forEach(function(item) {
+    total += item.price * item.quantity
+    return total
+  })
+  return total / 100
+}
+
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.handleCheckout = this.handleCheckout.bind(this)
   }
   handleCheckout() {
-    const cartId = this.props
-    this.props.checkout(cartId)
+    const cartId = this.props.activeCart.id
+    const totalPrice = calcTotal(this.props.cartItems) * 100
+    this.props.checkout(cartId, totalPrice)
   }
 
   render() {
@@ -30,6 +40,7 @@ class Cart extends Component {
     if (!cartItems.length) {
       return <h2> Cart is empty </h2>
     }
+
     return (
       <div className="all-cart-container">
         {cartItems.map(product => (
@@ -43,7 +54,7 @@ class Cart extends Component {
               </div>
             </Link>
             <p>{product.description}</p>
-            <p>{product.price / 100}</p>
+            <p>{product.price * product.quantity / 100}</p>
             <div>
               <label htmlFor="changeQty"> Change Quantity </label>
               <select
@@ -68,9 +79,20 @@ class Cart extends Component {
             </button>
           </div>
         ))}
-        <button type="button" onClick={() => this.handleCheckout()}>
-          Check Out
-        </button>
+        <div className="total-Price">
+          <h3 className="total-Price">
+            Your total is: {calcTotal(cartItems)}{' '}
+          </h3>
+        </div>
+        <div>
+          <button
+            className="checkout-button"
+            type="button"
+            onClick={() => this.handleCheckout()}
+          >
+            Check Out
+          </button>
+        </div>
       </div>
     )
   }
@@ -87,7 +109,7 @@ const mapDispatch = dispatch => {
   return {
     changeQuantity: (product, qty) => dispatch(changeQuantity(product, qty)),
     deleteItem: id => dispatch(fetchRemovedItem(id)),
-    checkout: () => dispatch(checkout())
+    checkout: (cartId, totalPrice) => dispatch(checkout(cartId, totalPrice))
   }
 }
 
