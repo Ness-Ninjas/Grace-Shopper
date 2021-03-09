@@ -76,19 +76,23 @@ router.put('/', async (req, res, next) => {
 
 router.put('/edit', async (req, res, next) => {
   try {
-    const cartItem = await CartItems.findOne({
-      where: {
-        productId: req.body.id
-      }
-    })
-    await cartItem.update({quantity: req.body.quantity})
-    res.send(cartItem)
+    if (req.user) {
+      const cartItem = await CartItems.findOne({
+        where: {
+          productId: req.body.id
+        }
+      })
+      await cartItem.update({quantity: req.body.quantity})
+      res.send(cartItem)
+    } else {
+      res.send()
+    }
   } catch (err) {
     next(err)
   }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:productId', async (req, res, next) => {
   //Need to refactor this to get cartId from redux
   console.log('deleting Item....')
   try {
@@ -96,6 +100,7 @@ router.delete('/', async (req, res, next) => {
       const cart = await Cart.findOne({where: {userId: req.user.id}})
       const cartItem = await CartItems.findOne({
         where: {
+          productId: req.params.productId,
           cartId: cart.id
         }
       })
