@@ -1,10 +1,13 @@
 import axios from 'axios'
 import {remove} from 'lodash'
+import {setCart} from './activeCart'
 
 // Action Types:
 const ADD_TO_CART = 'ADD_TO_CART'
 const CHANGE_QTY = 'CHANGE_QTY'
 const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM'
+const MERGE_WITH_USER = 'MERGE_WITH_USER'
+const CLEAR_ITEMS = 'CLEAR_ITEMS'
 
 //Action Creator:
 const addToCart = (product, qty) => ({
@@ -23,6 +26,16 @@ const removeItem = id => ({
   type: CART_REMOVE_ITEM,
   id
 })
+
+const mergeWithUser = cartItems => ({
+  type: MERGE_WITH_USER,
+  cartItems
+})
+
+export const clearItems = () => ({
+  type: CLEAR_ITEMS
+})
+
 // Thunks
 export const changeQuantity = (prodId, qty = 1) => {
   console.log('cart in the Thunk')
@@ -77,6 +90,19 @@ export const addItemToCart = (product, qty) => {
   }
 }
 
+export const combineWithUserCart = cartItems => {
+  return async dispatch => {
+    try {
+      const cart = (await axios.get('/api/carts')).data
+      // const updatedItems = (await axios.put('/api/cartItems', cartItems)).data
+      dispatch(setCart(cart))
+      // dispatch(mergeWithUser(updatedItems))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 // Initial State
 const initialState = []
 
@@ -114,6 +140,8 @@ export default (state = initialState, action) => {
     case CART_REMOVE_ITEM:
       const itemToRemove = state.filter(item => item.id !== action.id)
       return itemToRemove
+    case CLEAR_ITEMS:
+      return initialState
     default:
       return [...state]
   }

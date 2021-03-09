@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartItems} = require('../db/models')
+const {CartItems, Cart} = require('../db/models')
 module.exports = router
 
 console.log('---------------')
@@ -33,12 +33,38 @@ router.get('/:cartItemId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const cartItems = await CartItems.create(req.body, {
+    // find cart id and match this
+    const cart = await Cart.findOne({
       where: {
-        productId: req.body.productId
+        userId: req.user.id
       }
     })
+    // create a new row
+    const cartItems = await CartItems.create({
+      cartId: cart.id,
+      productId: req.body.id
+    })
     res.send(cartItems)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    // console.log('INCOMING', req.body)
+    // const cart = await Cart.findOne({
+    //   where: {
+    //     userId: req.user.id,
+    //   },
+    // })
+    // const incomingItems = req.body
+    // incomingItems.map(async (item) => {
+    //   item = await CartItems.create(item)
+    //   item.setCart(cart)
+    //   return item
+    // })
+    // res.send(incomingItems)
   } catch (err) {
     next(err)
   }

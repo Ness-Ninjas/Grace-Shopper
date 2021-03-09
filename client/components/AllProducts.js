@@ -9,6 +9,7 @@ class AllProducts extends Component {
     this.props.fetchAllProducts()
   }
   render() {
+    console.log('PROPS', this.props)
     const {isLoggedIn, allProducts, addToCart, isAdmin, state} = this.props
 
     console.log('============AllProducts=================')
