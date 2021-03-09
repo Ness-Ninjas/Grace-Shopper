@@ -31,6 +31,15 @@ class SingleProduct extends Component {
   }
 
   render() {
+    const options = []
+    const inventoryMax = 10
+    for (let i = 1; i <= inventoryMax; i++) {
+      options.push(
+        <option value={i} qty={i}>
+          {i}
+        </option>
+      )
+    }
     const {isLoggedIn, singleProduct} = this.props
 
     return (
@@ -57,36 +66,7 @@ class SingleProduct extends Component {
                 name="qty-select"
                 onChange={this.handleChange}
               >
-                <option value="1" qty="1">
-                  1
-                </option>
-                <option value="2" qty="2">
-                  2
-                </option>
-                <option value="3" qty="3">
-                  3
-                </option>
-                <option value="4" qty="4">
-                  4
-                </option>
-                <option value="5" qty="5">
-                  5
-                </option>
-                <option value="6" qty="6">
-                  6
-                </option>
-                <option value="7" qty="7">
-                  7
-                </option>
-                <option value="8" qty="8">
-                  8
-                </option>
-                <option value="9" qty="9">
-                  9
-                </option>
-                <option value="10" qty="10">
-                  10
-                </option>
+                {options}
               </select>
 
               <button type="submit" className=".all-prod-button">
