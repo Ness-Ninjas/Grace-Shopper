@@ -15,7 +15,7 @@ class Cart extends Component {
     const inventoryMax = 10
     for (let i = 1; i <= inventoryMax; i++) {
       options.push(
-        <option value={i} qty={i}>
+        <option key={i} value={i} qty={i}>
           {i}
         </option>
       )

@@ -112,6 +112,7 @@ export const combineWithUserCart = cartItems => {
       // const updatedItems = (await axios.put('/api/cartItems', cartItems)).data
       dispatch(setCart(cart))
       // dispatch(mergeWithUser(updatedItems))
+      dispatch(fetchCartItems(cart))
     } catch (err) {
       console.error(err)
     }
