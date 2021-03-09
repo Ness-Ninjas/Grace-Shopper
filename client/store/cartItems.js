@@ -8,8 +8,14 @@ const CHANGE_QTY = 'CHANGE_QTY'
 const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM'
 const MERGE_WITH_USER = 'MERGE_WITH_USER'
 const CLEAR_ITEMS = 'CLEAR_ITEMS'
+const CHECKOUT = 'CHECKOUT'
 
 //Action Creator:
+const checkOut = cartId => ({
+  type: CHECKOUT,
+  cartId
+})
+
 const addToCart = (product, qty) => ({
   type: ADD_TO_CART,
   product,
@@ -37,6 +43,18 @@ export const clearItems = () => ({
 })
 
 // Thunks
+export const checkout = cartId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put('/api/carts', {})
+      //dispatch(clearCart)
+      //dispatch(setCart)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const changeQuantity = (product, qty = 1) => {
   //console.log('cart in the Thunk')
   return async dispatch => {
@@ -131,8 +149,6 @@ export default (state = initialState, action) => {
       // checking to see if an item already exists, if so, we add quantities
       return addOrIncrement(state, itemToAdd)
     case CHANGE_QTY:
-      //console.log(state)
-      //console.log('PRODID', action.productId)
       const itemToChange = state.filter(item => item.id === action.productId)
       //console.log('ITEM TO CHANGE', itemToChange)
       itemToChange[0].quantity = action.qty

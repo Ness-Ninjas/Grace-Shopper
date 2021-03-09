@@ -15,8 +15,9 @@ router.get('/', async (req, res, next) => {
 
 // GET /api/cartItems/:id
 router.get('/:cartItemId', async (req, res, next) => {
+  console.log('cartItemsId test: ', req.params)
   try {
-    const cartItems = await CartItems.findByPk(req.params.cartId)
+    const cartItems = await CartItems.findByPk(req.params.cartItemId)
     if (cartItems) {
       res.json(cartItems)
     } else {

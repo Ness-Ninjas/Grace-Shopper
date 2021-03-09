@@ -1,19 +1,25 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {changeQuantity, fetchRemovedItem} from '../store/cartItems'
+import {changeQuantity, checkout, fetchRemovedItem} from '../store/cartItems'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
 
     // this.changeQty = this.changeQty.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   // changeQty(event, product) {
   //   this.props.changeQuantity(product, Number(event.target.value))
   // }
-
+  handleCheckout(cartId) {
+    console.log('==============handleCheckout==============')
+    console.log(this.props)
+    console.log('------------------------------------------')
+    checkout(cartId)
+  }
   render() {
     //console.log('=============CART.JS==================')
     //console.log(this.props.cartitems)
@@ -40,23 +46,24 @@ class Cart extends Component {
         {cartItems.map(product => (
           <div key={product.id} className="cart-product">
             <Link to={`/products/${product.id}`}>
-              <img src={product.imageUrlOne} /> <h3> {product.name}</h3>
+              <h4> {product.name}</h4>
+              <img src={product.imageUrlOne} className="single-cart-image" />
             </Link>
-            <p>{product.description}</p>
-            <p>{product.price / 100}</p>
-            <div>
-              <p> {product.quantity} </p>
-              <label htmlFor="changeQty"> Change Quantity </label>
-              <select
-                id="changeQty"
-                onChange={event => {
-                  this.props.changeQuantity(product, Number(event.target.value))
-                }}
-              >
-                <option value="default">{product.quantity}</option>
-                {options}
-              </select>
-            </div>
+            <p>
+              <span>{product.description}</span>
+              <span>{product.price / 100}</span>
+              <span> {product.quantity} </span>
+            </p>
+            <label htmlFor="changeQty"> Change Quantity </label>
+            <select
+              id="changeQty"
+              onChange={event => {
+                this.props.changeQuantity(product, Number(event.target.value))
+              }}
+            >
+              <option value="default">{product.quantity}</option>
+              {options}
+            </select>
             <button
               type="button"
               onClick={() => {
@@ -67,6 +74,9 @@ class Cart extends Component {
             </button>
           </div>
         ))}
+        <button type="button" onClick={() => this.checkOut(3)}>
+          Check Out
+        </button>
       </div>
     )
   }
@@ -74,7 +84,8 @@ class Cart extends Component {
 
 const mapState = state => {
   return {
-    cartItems: state.cartItems
+    cartItems: state.cartItems,
+    activeCart: state.activeCart
   }
 }
 

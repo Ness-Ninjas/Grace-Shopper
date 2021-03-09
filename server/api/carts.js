@@ -16,6 +16,24 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.put('/', async (req, res, next) => {
+  console.log('==================PUT CART============================')
+  console.log(req.user)
+  try {
+    const user = User.findOne({where: {email: req.body.email}})
+    const openCart = await Cart.findOne({
+      where: {
+        userId: user.id,
+        status: 'open'
+      }
+    })
+    const result = await openCart.update({status: 'closed'})
+    res.status(200).send(result)
+  } catch (error) {
+    res.status(403).send(error)
+  }
+})
+
 // router.put('/', async (req, res, next) => {
 //   try {
 //     const user = User.findOne({where: {email: req.body.email}})
