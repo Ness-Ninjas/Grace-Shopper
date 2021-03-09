@@ -46,6 +46,24 @@ form div {
   justify-content: space-around;
 }
 
+.all-cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.all-cart-product-container {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgb(97, 97, 97);
+  background: linear-gradient(to right, #c6c6c6, #d7dde8);
+  flex-direction: row;
+  border-radius: 10px;
+  margin: 15px;
+  width: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .button-div {
   display: flex;
   flex-wrap: wrap;
@@ -130,6 +148,12 @@ form div {
   border-radius: 10px;
 }
 
+.cart-prod-image {
+  height: 60px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
 .admin-container {
   display: flex;
   flex-wrap: wrap;
@@ -157,4 +181,11 @@ form div {
 
 .admin-prod-title {
   size: 0.5em;
+  flex-wrap: wrap;
+}
+
+.admin-prod-title-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
 }
