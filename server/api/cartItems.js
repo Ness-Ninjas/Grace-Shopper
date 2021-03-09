@@ -14,7 +14,7 @@ module.exports = router
 //   }
 // })
 
-router.get('/:cartId', checkLoggedin async (req, res, next) => {
+router.get('/:cartId', checkLoggedin, async (req, res, next) => {
   try {
     let cart = await Cart.findOne({
       where: {
