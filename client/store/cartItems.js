@@ -53,17 +53,23 @@ export const checkout = (cartId, totalPrice) => {
     console.log(cartId, totalPrice)
     try {
       const cart = (await axios.get(`/api/carts/`)).data
-      await axios.put('/api/carts', {totalPrice: totalPrice})
-      console.log(cart)
-      await axios.put('/api/carts', {status: 'closed'})
-      //const cart = (await axios.put('/api/carts', {status: "closed"})).data
+      if (cart.id) {
+        await axios.put('/api/carts', {totalPrice: totalPrice})
+        console.log(cart)
+        await axios.put('/api/carts', {status: 'closed'})
+        //const cart = (await axios.put('/api/carts', {status: "closed"})).data
 
-      //const {data} = await axios.get(`/api/cartItems/${cartId}`)
-      //const items = data
-      //console.log(cart)
+        //const {data} = await axios.get(`/api/cartItems/${cartId}`)
+        //const items = data
+        //console.log(cart)
 
-      dispatch(clearCart())
-      dispatch(fetchCart())
+        dispatch(clearCart())
+        dispatch(fetchCart())
+        alert(`Checkout Successful! Total Price: ${totalPrice / 100}`)
+      } else {
+        dispatch(clearItems())
+        alert(`Guest Checkout Successful! Total Price: ${totalPrice / 100}`)
+      }
     } catch (error) {
       console.log(error)
     }
