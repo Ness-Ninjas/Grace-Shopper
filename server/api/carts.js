@@ -4,13 +4,17 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const [cart, wasCreated] = await Cart.findOrCreate({
-      where: {
-        userId: req.user.id,
-        status: 'open'
-      }
-    })
-    res.send(cart.dataValues)
+    if (req.user) {
+      const [cart, wasCreated] = await Cart.findOrCreate({
+        where: {
+          userId: req.user.id,
+          status: 'open'
+        }
+      })
+      res.send(cart.dataValues)
+    } else {
+      res.send()
+    }
   } catch (err) {
     next(err)
   }

@@ -61,7 +61,8 @@ router.post('/', checkLoggedin, async (req, res, next) => {
     if (req.user) {
       const cart = await Cart.findOne({
         where: {
-          userId: req.user.id
+          userId: req.user.id,
+          status: 'open'
         }
       })
       const exists = await CartItems.findOne({
@@ -82,7 +83,6 @@ router.post('/', checkLoggedin, async (req, res, next) => {
           quantity: req.body.quantity,
           currentPrice: req.body.price
         })
-        //cartItem.setCart(cart)
         res.send(cartItem)
       }
     } else {

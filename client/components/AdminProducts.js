@@ -23,6 +23,7 @@ class AdminProducts extends Component {
       <div>
         <button
           type="button"
+          className="all-prod-button"
           onClick={() => {
             this.setState({isAdding: true})
           }}
@@ -33,6 +34,7 @@ class AdminProducts extends Component {
         {this.state.isAdding && (
           <button
             type="button"
+            className="all-prod-button"
             onClick={() => this.setState({isAdding: false})}
           >
             Cancel
